@@ -9,10 +9,8 @@ body {
     padding: 0;
 }
 
-
 .sidebar {
     display: flex;
-    
     width: 20rem;
     height: 100vh;
     background-color: seagreen;
