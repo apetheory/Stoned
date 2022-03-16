@@ -1,12 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600&family=Mukta:wght@200;300;400;500;600;700&display=swap');
+:root {
+    --body: white;
+    --sidebar: #3F0E40;
+    --button-hover: #552661;
+    --font-color: white;
+}
+
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    font-family: "Fredoka", "Mukta", open-sans;
 }
 
 body {
     margin: 0;
     padding: 0;
+    background-color: var(--body);
 }
 
 .sidebar {
@@ -15,34 +25,70 @@ body {
     display: flex;
     flex-direction: column;
     width: 20rem;
-    height: 100vh;
-    background-color: rgb(226, 226, 226);
+    height: 100%;
+    background-color: var(--sidebar);
 }
 
 .sidebar-item {
     display: flex;
     width: 100%;
-    background-color: red;
+    color: var(--font-color);
 }
 
 #sidebar-item-1 {
-    background-color: green;
+    align-items: center;
     height: 150px;
-    font-family: "Fredoka", "Mukta", open-sans;
     font-weight: 500;
     font-size: 1rem;
-}
-
-#sidebar-item-1:hover {
-    background-color: brown;
+    border: 1px solid var(--button-hover);
 }
 
 #sidebar-item-1 img {
-    height: 32px;
-    width: 32px;
+    height: 47px;
+    width: 47px;
 }
 
-.sidebar-top-menu {
+.sidebar-top-section {
+    margin-left: 10px;
     display: flex;
     align-items: center;
+    width: 100%;
+}
+
+.sidebar-top-user-area {
+    display: grid;
+    width: 100px;
+    padding-left: 10px;
+}
+
+#sidebar-top-activity {
+    font-weight: 400;
+    font-size: 12px;
+}
+
+#sidebar-button-menu {
+    display: flex;
+    justify-content: center;
+    height: 50px;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+#sidebar-button-menu button {
+    display: block;
+    width: 100%;
+    background: none;
+    cursor: pointer;
+    outline: none;
+    border-radius: 0;
+    color: #f6eee0;
+    font-weight: 500;
+    border: none;
+    border-right: 1px solid var(--button-hover);
+    border-bottom: 1px solid var(--button-hover);
+}
+
+#sidebar-button-menu button:hover {
+    text-decoration: underline;
+    background-color: var(--button-hover);
 }

@@ -2,22 +2,32 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>el capitan</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css" />
     <script type="text/javascript" src="/eel.js"></script>
-
 </head>
 
 <body>
     <div class="wrapper">
         <div class="sidebar">
             <div class="sidebar-item" id="sidebar-item-1">
-                <div class="sidebar-top-menu"><img src="./res/user.png" />username</div>
+                <div class="sidebar-top-section">
+                    <img src="./res/user.png" />
+                    <div class="sidebar-top-user-area">
+                        <span id="sidebar-top-username">username</span>
+                        <span id="sidebar-top-activity">Online</span>
+                    </div>
+                </div>
             </div>
-            <div class="sidebar-item">item2</div>
-            <div class="sidebar-item">item3</div>
+            <div class="sidebar-item" id="sidebar-button-menu">
+                <button>Online</button>
+                <button>Contacts</button>
+            </div>
+
+
+
 
         </div>
     </div>
