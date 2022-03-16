@@ -1,4 +1,4 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600&family=Mukta:wght@200;300;400;500;600;700&display=swap');
 * {
     margin: 0;
     padding: 0;
@@ -11,8 +11,38 @@ body {
 
 .sidebar {
     display: flex;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
     width: 20rem;
     height: 100vh;
-    background-color: seagreen;
+    background-color: rgb(226, 226, 226);
+}
 
+.sidebar-item {
+    display: flex;
+    width: 100%;
+    background-color: red;
+}
+
+#sidebar-item-1 {
+    background-color: green;
+    height: 150px;
+    font-family: "Fredoka", "Mukta", open-sans;
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+#sidebar-item-1:hover {
+    background-color: brown;
+}
+
+#sidebar-item-1 img {
+    height: 32px;
+    width: 32px;
+}
+
+.sidebar-top-menu {
+    display: flex;
+    align-items: center;
 }

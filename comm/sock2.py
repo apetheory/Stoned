@@ -75,7 +75,7 @@ class internal_client:
         self.sender.send(text.encode("utf-8"))
 
 
-Server = internal_server("0.0.0.0",7778)
+Server = internal_server("0.0.0.0",7779)
 Client = internal_client()
 
 # Server related threads
