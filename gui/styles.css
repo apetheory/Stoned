@@ -21,9 +21,9 @@ body {
 
 .sidebar {
     display: flex;
-    position: absolute;
-    display: flex;
     flex-direction: column;
+    flex-shrink: inherit;
+    position: absolute;
     width: 20rem;
     height: 100%;
     background-color: var(--sidebar);
@@ -33,26 +33,28 @@ body {
     display: flex;
     width: 100%;
     color: var(--font-color);
+    height: auto;
 }
 
-#sidebar-item-1 {
+#sidebar-top {
     align-items: center;
-    height: 150px;
+    height: 7rem;
     font-weight: 500;
     font-size: 1rem;
     border: 1px solid var(--button-hover);
 }
 
-#sidebar-item-1 img {
+#sidebar-top img {
     height: 47px;
     width: 47px;
 }
 
 .sidebar-top-section {
-    margin-left: 10px;
-    display: flex;
+    display: inline-flex;
+    padding-left: 10px;
     align-items: center;
     width: 100%;
+    height: 7rem;
 }
 
 .sidebar-top-user-area {
@@ -77,11 +79,12 @@ body {
 #sidebar-button-menu button {
     display: block;
     width: 100%;
+    height: 50px;
     background: none;
     cursor: pointer;
     outline: none;
     border-radius: 0;
-    color: #f6eee0;
+    color: var(--font-color);
     font-weight: 500;
     border: none;
     border-right: 1px solid var(--button-hover);
@@ -91,4 +94,63 @@ body {
 #sidebar-button-menu button:hover {
     text-decoration: underline;
     background-color: var(--button-hover);
+}
+
+#sidebar-contacts {
+    display: grid;
+    grid-template-rows: 1fr;
+    height: auto;
+    width: 100%;
+    overflow: scroll;
+}
+
+.sidebar-contact {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-left: 10px;
+    height: 50px;
+}
+
+.sidebar-contact:hover {
+    background-color: var(--button-hover);
+}
+
+#sidebar-contacts img {
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+}
+
+.sidebar-contact-user-area {
+    display: grid;
+    width: 100px;
+    padding-left: 12px;
+}
+
+.sidebar-contact-user-area img svg {
+    height: 8;
+    width: 8;
+}
+
+#sidebar-contact-username {
+    font-size: 0.8rem;
+}
+
+#sidebar-contact-status {
+    font-size: 0.6rem;
+}
+
+#sidebar-contact-dots {
+    border: 0;
+    background: none;
+    cursor: pointer;
+    outline: none;
+    margin-left: 150px;
+}
+
+#sidebar-contact-dots img {
+    height: 15px;
+    width: 15px;
+    filter: invert(100%) sepia(0%) saturate(1%) hue-rotate(345deg) brightness(101%) contrast(101%);
 }
