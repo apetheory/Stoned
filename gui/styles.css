@@ -1,16 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300;400;500;600&family=Mukta:wght@200;300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap');
+@font-face {
+    font-family: 'Chenvin';
+    src: url('./res/Chevin\ Medium.otf');
+    font-weight: normal;
+    font-style: normal;
+}
+
 :root {
     --body: white;
     --sidebar: #3F0E40;
     --button-hover: #552661;
     --font-color: white;
+    --secondary-font-color: #ddd;
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Fredoka", "Mukta", open-sans;
+    font-family: "Fredoka", "Mukta", sans-serif;
 }
 
 body {
@@ -19,11 +29,20 @@ body {
     background-color: var(--body);
 }
 
+.wrapper {
+    display: flex;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: start;
+    gap: 10px;
+}
+
 .sidebar {
     display: flex;
     flex-direction: column;
-    flex-shrink: inherit;
-    position: absolute;
     width: 20rem;
     height: 100%;
     background-color: var(--sidebar);
@@ -39,8 +58,6 @@ body {
 #sidebar-top {
     align-items: center;
     height: 7rem;
-    font-weight: 500;
-    font-size: 1rem;
     border: 1px solid var(--button-hover);
 }
 
@@ -59,13 +76,19 @@ body {
 
 .sidebar-top-user-area {
     display: grid;
-    width: 100px;
+    width: 150px;
     padding-left: 10px;
+}
+
+#sidebar-top-username {
+    font-size: 1rem;
+    font-weight: 400;
 }
 
 #sidebar-top-activity {
     font-weight: 400;
-    font-size: 12px;
+    font-size: 0.65rem;
+    color: var(--secondary-font-color);
 }
 
 #sidebar-button-menu {
@@ -98,7 +121,7 @@ body {
 
 #sidebar-contacts {
     display: grid;
-    grid-template-rows: 1fr;
+    grid-template-rows: auto;
     height: auto;
     width: 100%;
     overflow: scroll;
@@ -107,9 +130,10 @@ body {
 .sidebar-contact {
     display: flex;
     flex-direction: row;
-    align-items: center;
+    justify-content: space-between;
     padding-left: 10px;
-    height: 50px;
+    height: 55px;
+    width: 100%;
 }
 
 .sidebar-contact:hover {
@@ -124,7 +148,7 @@ body {
 
 .sidebar-contact-user-area {
     display: grid;
-    width: 100px;
+    width: 180px;
     padding-left: 12px;
 }
 
@@ -133,12 +157,25 @@ body {
     width: 8;
 }
 
+.sidebar-contact-info {
+    display: flex;
+    align-items: center;
+}
+
+.sidebar-dots {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+
 #sidebar-contact-username {
     font-size: 0.8rem;
+    font-weight: 400;
 }
 
 #sidebar-contact-status {
     font-size: 0.6rem;
+    color: var(--secondary-font-color);
 }
 
 #sidebar-contact-dots {
@@ -146,7 +183,6 @@ body {
     background: none;
     cursor: pointer;
     outline: none;
-    margin-left: 150px;
 }
 
 #sidebar-contact-dots img {
