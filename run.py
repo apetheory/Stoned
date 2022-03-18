@@ -1,14 +1,16 @@
 
 import eel
-import threading
+import socket
+from tkinter.filedialog import askopenfilename
 
-def main():
-    eel.init('gui')
-    eel.start('index.html', size=("1280","720"))
+# filename = askopenfilename()
 
-if __name__ == "__main__":
-    main()
+eel.init('gui')
 
+@eel.expose
+def muie():
+    ip = socket.gethostbyname(socket.gethostname())
+    print(ip)
+    return ip
 
-
-
+eel.start('index.html', size=("1280","720"))
