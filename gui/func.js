@@ -4,10 +4,8 @@ let buttonFriendRequests = document.getElementById("buttonFriendRequests")
 let settingsView = document.getElementById("settingsView")
 let pendingRequestsView = document.getElementById("pendingRequestsView")
 
-
 function hideSettings() {
     settingsView.setAttribute("style", "display: none;")
-
 }
 
 settingsButton.onclick = function() {
