@@ -1,17 +1,23 @@
-function goToMainMenu() {
-    console.log("test")
-    let settings_view = document.getElementById("settings")
-    settings_view.setAttribute("style", "display: none;")
+let settingsButton = document.getElementById("buttonSettings")
+let buttonFriendRequests = document.getElementById("buttonFriendRequests")
 
-    let main_view = document.getElementById("home")
-    main_view.setAttribute("style", "display: flex;")
+let settingsView = document.getElementById("settingsView")
+let pendingRequestsView = document.getElementById("pendingRequestsView")
+
+
+function hideSettings() {
+    settingsView.setAttribute("style", "display: none;")
+
 }
 
+settingsButton.onclick = function() {
+    settingsView.setAttribute("style", "display: flex;")
+    pendingRequestsView.setAttribute("style", "display:none;")
+};
 
-function goToSettings() {
-    let settings_view = document.getElementById("settings")
-    settings_view.setAttribute("style", "display: flex;")
+buttonFriendRequests.onclick = function() {
+    hideSettings()
+        // hide message screen and other elements
+    pendingRequestsView.setAttribute("style", "display:flex;")
 
-    let main_view = document.getElementById("home")
-    main_view.setAttribute("style", "display: none;")
 }

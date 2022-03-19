@@ -5,12 +5,13 @@
 :root {
     --body: white;
     --sidebar: #3F0E40;
-    --button-hover: #552661;
+    --sidebar-secondary: #552661;
     --font-color: white;
     --secondary-font-color: #ddd;
     --settings-menu-section-color: rgb(107, 107, 107);
     --settings-shortcut-title: black;
     --settings-option-border-colour: rgb(231, 231, 231);
+    --button-hover: #552661;
 }
 
 * {
@@ -29,51 +30,28 @@ body {
 .wrapper {
     display: flex;
     position: absolute;
-    align-items: center;
     width: 100%;
     height: 100%;
     flex-direction: row;
     flex-wrap: nowrap;
-    justify-content: center;
+    justify-content: space-between;
 }
 
-.wrapper-settings {
-    display: none;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: nowrap;
-    flex-direction: row;
-}
-
-.menubar {
+.settings-wrapper {
     display: flex;
-    flex-direction: row;
-    height: 40px;
-    justify-content: flex-end;
-    align-items: center;
-    text-align: right;
     width: 100%;
-}
-
-.menubar button {
-    outline: none;
-    border: none;
-    cursor: pointer;
-}
-
-.menubar img {
-    height: 32px;
-    width: 32px;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    flex-direction: row;
 }
 
 .settings-view {
-    display: grid;
-    width: 800px;
-    height: 600px;
-    overflow: scroll;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 700px;
 }
 
 .settings-shortcuts {
@@ -123,6 +101,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 40px;
+    overflow: scroll;
 }
 
 .settings-section-title {
@@ -173,7 +152,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 7rem;
-    border: 1px solid var(--button-hover);
+    border: 1px solid var(--sidebar-secondary);
 }
 
 #sidebar-top img {
@@ -233,7 +212,7 @@ body {
     color: var(--font-color);
     font-size: 0.65rem;
     font-weight: 400;
-    border: 1px solid var(--button-hover);
+    border: 1px solid var(--sidebar-secondary);
     padding: 4px 9px;
 }
 
@@ -260,8 +239,8 @@ body {
     border-radius: 0;
     color: var(--font-color);
     border: none;
-    border-right: 1px solid var(--button-hover);
-    border-bottom: 1px solid var(--button-hover);
+    border-right: 1px solid var(--sidebar-secondary);
+    border-bottom: 1px solid var(--sidebar-secondary);
 }
 
 #sidebar-button-menu button:hover {
@@ -344,14 +323,50 @@ body {
 
 .main-view {
     display: flex;
-    justify-content: center;
     align-items: center;
     background-color: var(--body);
     width: 100%;
     flex-direction: column;
 }
 
-.welcome {
+.main-bar {
+    display: flex;
+    flex-direction: row;
+    height: 40px;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
+    color: var(--font-color);
+    box-shadow: 0px 0px 5px #888;
+}
+
+.main-bar-item button {
+    display: block;
+    height: 40px;
+    padding: 5px 30px;
+    background: none;
+    cursor: pointer;
+    outline: none;
+    border-radius: 0;
+    border: none;
+    font-weight: 500;
+    text-align: center;
+    align-items: center;
+}
+
+.main-bar-item button:hover {
+    text-decoration: underline;
+    border-bottom: 2px solid #8BB8E8;
+}
+
+.main-bar-item img {
+    height: 25px;
+    width: 25px;
+}
+
+.pending-requests-view {
     display: flex;
     flex-direction: column;
+    width: 100%;
+    height: 50px;
 }
