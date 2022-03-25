@@ -4,6 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>el capitan</title>
     <link rel="stylesheet" href="styles.css" />
     <script type="text/javascript" src="/eel.js"></script>
@@ -32,7 +33,7 @@
                 <button>Contacts</button>
             </div>
             <div class="sidebar-item" id="sidebar-contacts">
-                <div class="sidebar-contact">
+                <div class="sidebar-contact" id="sidebarContact" onmouseover="sidebarContactShowDots()" onmouseleave="hideContactDots()" onclick="onContactClick()">
                     <div class="sidebar-contact-info">
                         <img src="./res/user.png" />
                         <div class="sidebar-contact-user-area">
@@ -40,75 +41,34 @@
                             <span id="sidebar-contact-status">Omnis quis qui itaque et rerum quo. </span>
                         </div>
                     </div>
-                    <div class="sidebar-dots">
-                        <button id="sidebar-contact-dots">
-                            <img src="./res/3-vertical-dots.svg" />
-                        </button>
-                    </div>
-                </div>
-                <div class="sidebar-contact">
-                    <div class="sidebar-contact-info">
-                        <img src="./res/user.png" />
-                        <div class="sidebar-contact-user-area">
-                            <span id="sidebar-contact-username">User</span>
-                            <span id="sidebar-contact-status">Omnis quis qui itaque et rerum quo. </span>
-                        </div>
-                    </div>
-                    <div class="sidebar-dots">
-                        <button id="sidebar-contact-dots">
-                            <img src="./res/3-vertical-dots.svg" />
-                        </button>
-                    </div>
-                </div>
-                <div class="sidebar-contact">
-                    <div class="sidebar-contact-info">
-                        <img src="./res/user.png" />
-                        <div class="sidebar-contact-user-area">
-                            <span id="sidebar-contact-username">User</span>
-                            <span id="sidebar-contact-status">Omnis quis qui itaque et rerum quo. </span>
-                        </div>
-                    </div>
-                    <div class="sidebar-dots">
-                        <button id="sidebar-contact-dots">
-                            <img src="./res/3-vertical-dots.svg" />
-                        </button>
-                    </div>
-                </div>
-                <div class="sidebar-contact">
-                    <div class="sidebar-contact-info">
-                        <img src="./res/user.png" />
-                        <div class="sidebar-contact-user-area">
-                            <span id="sidebar-contact-username">User</span>
-                            <span id="sidebar-contact-status">Omnis quis qui itaque et rerum quo. </span>
-                        </div>
-                    </div>
-                    <div class="sidebar-dots">
-                        <button id="sidebar-contact-dots">
-                            <img src="./res/3-vertical-dots.svg" />
+                    <div class="sidebar-dots" id="contactDots">
+                        <button id="sidebar-contact-dots" onclick="sidebarContactExpandMenu()">
+                            <img src="./res/expand_more_black_24dp.svg" />
                         </button>
                     </div>
                 </div>
 
+
             </div>
         </div>
         <div class="main-view">
-            <div class="main-bar">
+            <div class="menu-bar" id="mainViewMenuBar">
                 <div class="main-bar-item">
-                    <button id="buttonAddFriend"><div style="display:flex; flex-direction: row; justify-content: center; align-items: center; gap: 5px;">
-                        <img src="./res/outline_group_add_black_24dp.png" />
+                    <button id="menuAddFriend"><div style="display:flex; flex-direction: row; justify-content: center; align-items: center; gap: 5px;">
+                        <img src="./res/person_add_black_24dp.svg" />
                         <span>Add friend</span>
                     </div></button>
                 </div>
                 <div class="main-bar-item">
                     <button id="buttonFriendRequests"><div style="display:flex; flex-direction: row; justify-content: center; align-items: center; gap: 5px;">
-                        <img src="./res/outline_pending_black_24dp.png" />
+                        <img src="./res/schedule_black_24dp.svg" />
                         <span>Pending</span>
                     </div></button>
                 </div>
                 <div class="main-bar-item">
                     <button id="buttonSettings">
                     <div style="display:flex; flex-direction: row; justify-content: center; align-items: center; gap: 5px;">
-                        <img src="./res/outline_settings_black_48dp.png" />
+                        <img src="./res/settings_black_24dp.svg" />
                         <span>Settings</span>
                     </div>
                     </button>
@@ -166,27 +126,27 @@
                             <div class="settings-section-title">Look and feel</div>
                             <div class="settings-section-content ">
                                 <div class="settings-item">
-                                    <div class="settings-item-title">Test</div>
+                                    <div class="settings-item-title">Sidebar main colour</div>
                                     <input type="color">
                                 </div>
                                 <div class="settings-item">
-                                    <div class="settings-item-title">Test</div>
+                                    <div class="settings-item-title">Sidebar secondary colour</div>
                                     <input type="color">
                                 </div>
                                 <div class="settings-item">
-                                    <div class="settings-item-title">Test</div>
+                                    <div class="settings-item-title">Body colour</div>
                                     <input type="color">
                                 </div>
                                 <div class="settings-item">
-                                    <div class="settings-item-title">Test</div>
+                                    <div class="settings-item-title">Main navbar underline colour</div>
                                     <input type="color">
                                 </div>
                                 <div class="settings-item">
-                                    <div class="settings-item-title">Test</div>
+                                    <div class="settings-item-title">Main font colour</div>
                                     <input type="color">
                                 </div>
                                 <div class="settings-item">
-                                    <div class="settings-item-title">Test</div>
+                                    <div class="settings-item-title">Secondary font colour</div>
                                     <input type="color">
                                 </div>
                             </div>
@@ -229,164 +189,49 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="pending-request-contact">
-                            <div class="start">
-                                <img src="./res/user.png" />
-                                <div class="pending-request-contact-info">
-                                    <span class="pending-request-contact-username">Someone</span>
-                                    <span class="pending-request-contact-status">Status that is too long so the end gets cut off </span>
-                                </div>
-                            </div>
-                            <div class="end">
-                                <div class="pending-request-actions">
-                                    <button id="acceptRequest"><img src="./res/tick.svg"></button>
-                                    <button id="denyRequest"><img src="./res/x.svg"></button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="pending-request-contact">
-                            <div class="start">
-                                <img src="./res/user.png" />
-                                <div class="pending-request-contact-info">
-                                    <span class="pending-request-contact-username">Someone</span>
-                                    <span class="pending-request-contact-status">Status that is too long so the end gets cut off </span>
-                                </div>
-                            </div>
-                            <div class="end">
-                                <div class="pending-request-actions">
-                                    <button id="acceptRequest"><img src="./res/tick.svg"></button>
-                                    <button id="denyRequest"><img src="./res/x.svg"></button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="pending-request-contact">
-                            <div class="start">
-                                <img src="./res/user.png" />
-                                <div class="pending-request-contact-info">
-                                    <span class="pending-request-contact-username">Someone</span>
-                                    <span class="pending-request-contact-status">Status that is too long so the end gets cut off </span>
-                                </div>
-                            </div>
-                            <div class="end">
-                                <div class="pending-request-actions">
-                                    <button id="acceptRequest"><img src="./res/tick.svg"></button>
-                                    <button id="denyRequest"><img src="./res/x.svg"></button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="pending-request-contact">
-                            <div class="start">
-                                <img src="./res/user.png" />
-                                <div class="pending-request-contact-info">
-                                    <span class="pending-request-contact-username">Someone</span>
-                                    <span class="pending-request-contact-status">Status that is too long so the end gets cut off </span>
-                                </div>
-                            </div>
-                            <div class="end">
-                                <div class="pending-request-actions">
-                                    <button id="acceptRequest"><img src="./res/tick.svg"></button>
-                                    <button id="denyRequest"><img src="./res/x.svg"></button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="pending-request-contact">
-                            <div class="start">
-                                <img src="./res/user.png" />
-                                <div class="pending-request-contact-info">
-                                    <span class="pending-request-contact-username">Someone</span>
-                                    <span class="pending-request-contact-status">Status that is too long so the end gets cut off </span>
-                                </div>
-                            </div>
-                            <div class="end">
-                                <div class="pending-request-actions">
-                                    <button id="acceptRequest"><img src="./res/tick.svg"></button>
-                                    <button id="denyRequest"><img src="./res/x.svg"></button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="pending-request-contact">
-                            <div class="start">
-                                <img src="./res/user.png" />
-                                <div class="pending-request-contact-info">
-                                    <span class="pending-request-contact-username">Someone</span>
-                                    <span class="pending-request-contact-status">Status that is too long so the end gets cut off </span>
-                                </div>
-                            </div>
-                            <div class="end">
-                                <div class="pending-request-actions">
-                                    <button id="acceptRequest"><img src="./res/tick.svg"></button>
-                                    <button id="denyRequest"><img src="./res/x.svg"></button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="pending-request-contact">
-                            <div class="start">
-                                <img src="./res/user.png" />
-                                <div class="pending-request-contact-info">
-                                    <span class="pending-request-contact-username">Someone</span>
-                                    <span class="pending-request-contact-status">Status that is too long so the end gets cut off </span>
-                                </div>
-                            </div>
-                            <div class="end">
-                                <div class="pending-request-actions">
-                                    <button id="acceptRequest"><img src="./res/tick.svg"></button>
-                                    <button id="denyRequest"><img src="./res/x.svg"></button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="pending-request-contact">
-                            <div class="start">
-                                <img src="./res/user.png" />
-                                <div class="pending-request-contact-info">
-                                    <span class="pending-request-contact-username">Someone</span>
-                                    <span class="pending-request-contact-status">Status that is too long so the end gets cut off </span>
-                                </div>
-                            </div>
-                            <div class="end">
-                                <div class="pending-request-actions">
-                                    <button id="acceptRequest"><img src="./res/tick.svg"></button>
-                                    <button id="denyRequest"><img src="./res/x.svg"></button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="pending-request-contact">
-                            <div class="start">
-                                <img src="./res/user.png" />
-                                <div class="pending-request-contact-info">
-                                    <span class="pending-request-contact-username">Someone</span>
-                                    <span class="pending-request-contact-status">Status that is too long so the end gets cut off </span>
-                                </div>
-                            </div>
-                            <div class="end">
-                                <div class="pending-request-actions">
-                                    <button id="acceptRequest"><img src="./res/tick.svg"></button>
-                                    <button id="denyRequest"><img src="./res/x.svg"></button>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="pending-request-contact">
-                            <div class="start">
-                                <img src="./res/user.png" />
-                                <div class="pending-request-contact-info">
-                                    <span class="pending-request-contact-username">Someone</span>
-                                    <span class="pending-request-contact-status">Status that is too long so the end gets cut off </span>
-                                </div>
-                            </div>
-                            <div class="end">
-                                <div class="pending-request-actions">
-                                    <button id="acceptRequest"><img src="./res/tick.svg"></button>
-                                    <button id="denyRequest"><img src="./res/x.svg"></button>
-                                </div>
-                            </div>
-                        </div>
+                    </div>
+                </div>
+            </div>
 
+            <div class="send-request-view" id="sendRequestView">
+                <div class="request-button-area">
+                    <div class="request-description">
+                        <h1>Add friend</h1>
+                        <span>You can either add a friend manually or by using our matching server.</span>
+                    </div>
+                    <div class="request-matching-server">
+                        <form id="addFriendForm">
+                            <input type="text" placeholder="Enter friend code" class="friend-request-input" id="sendFriendRequestCode">
+                            <button class="friend-request-submit" id="submitFriendRequestCode">Send Friend Request</button>
+                        </form>
                     </div>
 
+                    <div class="request-manual">
+                        <button id="expandRequestManual"><img src="./res/expand_more_black_24dp.svg" /><span>Add a friend using their IP Address</span></button>
+                        <form id="addFriendFormIP">
+                            <input type="text" placeholder="IP Address : Port" class="friend-request-input" id="sendFriendRequestIP">
+                            <button class="friend-request-submit" id="submitFriendRequestIP">Send Friend Request</button>
+                        </form>
+                    </div>
                 </div>
-
             </div>
+
+            <div class="messaging-screen">
+                <div class="menu-bar" id="messagingScreenMenuBar">
+                    <div class="main-bar-item">
+                        <button id="goBackHome">
+                            <img src="./res/arrow_back_black_24dp.svg"> 
+                        </button>
+                    </div>
+                    <div class="main-bar-item">
+                        test
+                    </div>
+                </div>
+            </div>
+
         </div>
-        <script type="text/javascript " src="func.js" async defer></script>
+
+        <script type="text/javascript" src="func.js" async defer></script>
 </body>
 
 </html>

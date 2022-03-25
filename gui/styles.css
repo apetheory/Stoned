@@ -32,7 +32,7 @@ body {
 
 .wrapper {
     display: flex;
-    position: absolute;
+    position: fixed;
     width: 100%;
     height: 100%;
     flex-direction: row;
@@ -54,17 +54,19 @@ body {
     flex-wrap: nowrap;
     flex-direction: row;
     animation: anim-lineUp 0.6s ease-out;
+    overflow: auto;
 }
 
 .settings-view {
     display: flex;
     flex-direction: column;
-    height: 700px;
+    margin-top: 20px;
+    height: 100%;
     width: 700px;
 }
 
 .settings-shortcuts {
-    display: flex;
+    display: none;
     flex-direction: row;
     width: 100%;
     height: 200px;
@@ -74,7 +76,7 @@ body {
 }
 
 .settings-shortcut {
-    display: flex;
+    display: none;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -110,8 +112,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 40px;
-    overflow: scroll;
-    height: 600px;
+    height: auto;
     scrollbar-width: thin;
 }
 
@@ -139,7 +140,7 @@ body {
 }
 
 .settings-item:hover {
-    animation: settings-item-border 0.4s forwards;
+    animation: settings-item-border 0.1s forwards;
 }
 
 .settings-item-title {
@@ -301,7 +302,7 @@ body {
     grid-template-rows: auto;
     height: auto;
     width: 100%;
-    overflow: scroll;
+    overflow: auto;
 }
 
 .sidebar-contact {
@@ -311,6 +312,7 @@ body {
     padding-left: 10px;
     height: 55px;
     width: 100%;
+    overflow: hidden;
 }
 
 .sidebar-contact:hover {
@@ -341,9 +343,10 @@ body {
 }
 
 .sidebar-dots {
-    display: flex;
+    display: none;
     align-items: center;
     margin-right: 10px;
+    animation: 0.4s anim-lineUp forwards;
 }
 
 #sidebar-contact-username {
@@ -383,7 +386,7 @@ body {
     flex-direction: column;
 }
 
-.main-bar {
+.menu-bar {
     display: flex;
     flex-direction: row;
     height: 40px;
@@ -426,11 +429,13 @@ body {
 
 .pending-requests-view {
     display: none;
-    flex-direction: column;
-    align-items: center;
     width: 100%;
     height: 100%;
+    justify-content: center;
+    flex-wrap: nowrap;
+    flex-direction: row;
     animation: anim-lineUp 0.6s ease-out;
+    overflow: scroll;
 }
 
 .pending-requests-wrapper {
@@ -438,7 +443,7 @@ body {
     flex-direction: column;
     align-content: center;
     width: 700px;
-    height: 100%;
+    height: auto;
 }
 
 .pending-requests-title {
@@ -453,8 +458,9 @@ body {
 .pending-requests {
     display: flex;
     flex-direction: column;
-    overflow: scroll;
-    height: 100%;
+    width: 700px;
+    flex-wrap: nowrap;
+    height: auto;
 }
 
 .pending-request-contact {
@@ -520,6 +526,130 @@ body {
 
 /* ================================================================ */
 
+.send-request-view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    animation: anim-lineUp 0.6s ease-out;
+}
+
+.request-button-area {
+    display: flex;
+    margin-top: 15px;
+    flex-direction: column;
+    width: 600px;
+    height: 100%;
+    gap: 20px;
+}
+
+.request-description {
+    height: auto;
+}
+
+.request-description h1 {
+    color: var(--settings-menu-section-color);
+    margin-bottom: 5px;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+}
+
+.request-description span {
+    color: black;
+    margin-bottom: 10px;
+    font-weight: 500;
+    font-size: 0.75rem;
+}
+
+.request-matching-server {
+    height: auto;
+    width: 100%;
+}
+
+.friend-request-input {
+    width: 400px;
+    height: 40px;
+    padding: 5px 15px;
+}
+
+.friend-request-input::placeholder {
+    color: black;
+    font-weight: 500;
+    font-size: 0.7rem;
+}
+
+.friend-request-submit {
+    margin-left: -160px;
+    outline: none;
+    border: none;
+    height: 30px;
+    font-weight: 500;
+    padding: 5px 20px;
+    font-size: 0.7rem;
+    border-radius: 4px;
+}
+
+.request-manual {
+    display: flex;
+    flex-direction: column;
+}
+
+.request-manual img {
+    height: 16px;
+    width: 16px;
+    margin-right: 10px;
+}
+
+#expandRequestManual {
+    display: flex;
+    outline: none;
+    border: none;
+    background: none;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 0;
+    margin-bottom: 10px;
+}
+
+#expandRequestManual:hover {
+    text-decoration: underline;
+}
+
+#addFriendFormIP {
+    display: none;
+    animation: 0.6s anim-lineDown forwards;
+}
+
+
+/* ================================================================ */
+
+
+/* ================================================================ */
+
+.messaging-screen {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+}
+
+#messagingScreenMenuBar {
+    justify-content: flex-start;
+    color: black;
+    gap: 20px;
+}
+
+#messagingScreenMenuBar button {
+    padding: 5px 15px;
+}
+
+
+/* ================================================================ */
+
+
+/* ================================================================ */
+
 @keyframes menubar-border {
     0% {
         border-bottom: 0px solid #8BB8E8;
@@ -534,7 +664,7 @@ body {
         border-bottom: 0px solid #8BB8E8;
     }
     100% {
-        border-bottom: 2px solid #8BB8E8;
+        border-bottom: 1px solid #8BB8E8;
     }
 }
 
@@ -551,6 +681,24 @@ body {
     0% {
         opacity: 0;
         transform: translateY(80%);
+    }
+    20% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 1;
+        transform: translateY(0%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0%);
+    }
+}
+
+@keyframes anim-lineDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-80%);
     }
     20% {
         opacity: 0;

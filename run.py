@@ -13,4 +13,4 @@ def muie():
     print(ip)
     return ip
 
-eel.start('index.html', size=("1280","720"))
+eel.start('index.html', size=("1024","576"))
