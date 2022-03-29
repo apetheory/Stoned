@@ -20,9 +20,17 @@ function hideAddFriend() {
     sendRequestView.style.display = "none";
 }
 
-settingsButton.onclick = function() {
+function hideChat() {
+    messagingScreen = document.querySelector('.messaging-screen')
+    messagingScreen.style.display = "none";
+}
+
+
+function showSettings() {
     hideAddFriend()
     hidePendingRequests()
+    hideChat()
+
     settingsView.style.display = "flex";
 };
 

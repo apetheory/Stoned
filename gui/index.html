@@ -12,6 +12,7 @@
 
 <body>
     <div class="wrapper" id="home">
+
         <div class="sidebar">
             <div class="sidebar-item" id="sidebar-top">
                 <div class="sidebar-top-profile">
@@ -20,25 +21,27 @@
                     </div>
                     <div class="sidebar-profile-text">
                         <div class="sidebar-profile-text-column">
-                            <span id="sidebar-profile-username">fsafdasfasfas</span>
+                            <span id="sidebar-profile-username">You</span>
                         </div>
                         <div class="sidebar-profile-text-column">
-                            <button id="top-edit-profile">Edit profile</button>
+                            <button id="sidebar-edit-profile" onclick="showSettings()">Edit profile</button>
                         </div>
                     </div>
                 </div>
             </div>
+            <!-- 
             <div class="sidebar-item" id="sidebar-button-menu">
                 <button>Online</button>
                 <button>Contacts</button>
             </div>
+-->
             <div class="sidebar-item" id="sidebar-contacts">
                 <div class="sidebar-contact" id="sidebarContact" onmouseover="sidebarContactShowDots()" onmouseleave="hideContactDots()" onclick="onContactClick()">
                     <div class="sidebar-contact-info">
                         <img src="./res/user.png" />
                         <div class="sidebar-contact-user-area">
-                            <span id="sidebar-contact-username">User</span>
-                            <span id="sidebar-contact-status">Omnis quis qui itaque et rerum quo. </span>
+                            <span id="sidebar-contact-username">Contact name</span>
+                            <span id="sidebar-contact-status">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis atque repellendus debitis quos nulla distinctio eum temporibus dicta labore saepe officiis corporis quod, iste, ex, dolores at odit commodi porro. </span>
                         </div>
                     </div>
                     <div class="sidebar-dots" id="contactDots">
@@ -52,6 +55,7 @@
             </div>
         </div>
         <div class="main-view">
+
             <div class="menu-bar" id="mainViewMenuBar">
                 <div class="main-bar-item">
                     <button id="menuAddFriend"><div style="display:flex; flex-direction: row; justify-content: center; align-items: center; gap: 5px;">
@@ -66,7 +70,7 @@
                     </div></button>
                 </div>
                 <div class="main-bar-item">
-                    <button id="buttonSettings">
+                    <button id="buttonSettings" onclick="showSettings()">
                     <div style="display:flex; flex-direction: row; justify-content: center; align-items: center; gap: 5px;">
                         <img src="./res/settings_black_24dp.svg" />
                         <span>Settings</span>
@@ -74,6 +78,7 @@
                     </button>
                 </div>
             </div>
+
             <div class="settings-wrapper" id="settingsView">
                 <div class="settings-view">
                     <div class="settings-shortcuts">
@@ -216,20 +221,227 @@
                 </div>
             </div>
 
+
+
+
             <div class="messaging-screen">
+
                 <div class="menu-bar" id="messagingScreenMenuBar">
                     <div class="main-bar-item">
                         <button id="goBackHome">
                             <img src="./res/arrow_back_black_24dp.svg"> 
                         </button>
                     </div>
+                    <div class="main-bar-item" id="messagingScreenProfilePhoto">
+                        <img src="./res/user.png">
+                    </div>
                     <div class="main-bar-item">
-                        test
+                        <div class="messaging-screen-contact-info">
+                            <h1 id="messagingScreenUsername">Username</h1>
+                            <p id="messagingScreenStatus">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sint excepturi ipsam facilis asperiores libero iusto dolorem incidunt quisquam nisi quaerat, commodi consequuntur sed, quibusdam atque! Repellendus voluptatum dolorum
+                                ipsam provident?
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="message-history">
+
+                    <div class="message">
+                        <img src="./res/user.png">
+                        <div class="message-section">
+                            <h2 id="msgUsername">Someone</h2>
+                            <p id="msgText">Hello</span>
+                        </div>
+                    </div>
+                    <div class="message">
+                        <img src="./res/user.png">
+                        <div class="message-section">
+                            <h2 id="msgUsername">Someone</h2>
+                            <p id="msgText">Hello</span>
+                        </div>
+                    </div>
+                    <div class="message">
+                        <img src="./res/user.png">
+                        <div class="message-section">
+                            <h2 id="msgUsername">Someone</h2>
+                            <p id="msgText">Hello</span>
+                        </div>
+                    </div>
+                    <div class="message">
+                        <img src="./res/user.png">
+                        <div class="message-section">
+                            <h2 id="msgUsername">Someone</h2>
+                            <p id="msgText">Hello</span>
+                        </div>
+                    </div>
+                    <div class="message">
+                        <img src="./res/user.png">
+                        <div class="message-section">
+                            <h2 id="msgUsername">Someone</h2>
+                            <p id="msgText">Hello</span>
+                        </div>
+                    </div>
+                    <div class="message">
+                        <img src="./res/user.png">
+                        <div class="message-section">
+                            <h2 id="msgUsername">Someone</h2>
+                            <p id="msgText">Hello</span>
+                        </div>
+                    </div>
+                    <div class="message">
+                        <img src="./res/user.png">
+                        <div class="message-section">
+                            <h2 id="msgUsername">Someone</h2>
+                            <p id="msgText">Hello</span>
+                        </div>
+                    </div>
+                    <div class="message">
+                        <img src="./res/user.png">
+                        <div class="message-section">
+                            <h2 id="msgUsername">Someone</h2>
+                            <p id="msgText">Hello</span>
+                        </div>
+                    </div>
+                    <div class="message">
+                        <img src="./res/user.png">
+                        <div class="message-section">
+                            <h2 id="msgUsername">Someone</h2>
+                            <p id="msgText">Hello</span>
+                        </div>
+                    </div>
+                    <div class="message">
+                        <img src="./res/user.png">
+                        <div class="message-section">
+                            <h2 id="msgUsername">Someone</h2>
+                            <p id="msgText">Hello</span>
+                        </div>
+                    </div>
+                    <div class="message">
+                        <img src="./res/user.png">
+                        <div class="message-section">
+                            <h2 id="msgUsername">Someone</h2>
+                            <p id="msgText">Hello</span>
+                        </div>
+                    </div>
+                    <div class="message">
+                        <img src="./res/user.png">
+                        <div class="message-section">
+                            <h2 id="msgUsername">Someone</h2>
+                            <p id="msgText">Hello</span>
+                        </div>
+                    </div>
+                    <div class="message">
+                        <img src="./res/user.png">
+                        <div class="message-section">
+                            <h2 id="msgUsername">Someone</h2>
+                            <p id="msgText">Hello</span>
+                        </div>
+                    </div>
+                    <div class="message">
+                        <img src="./res/user.png">
+                        <div class="message-section">
+                            <h2 id="msgUsername">Someone</h2>
+                            <p id="msgText">Hello</span>
+                        </div>
+                    </div>
+                    <div class="message">
+                        <img src="./res/user.png">
+                        <div class="message-section">
+                            <h2 id="msgUsername">Someone</h2>
+                            <p id="msgText">Hello</span>
+                        </div>
+                    </div>
+                    <div class="message">
+                        <img src="./res/user.png">
+                        <div class="message-section">
+                            <h2 id="msgUsername">Someone</h2>
+                            <p id="msgText">Hello</span>
+                        </div>
+                    </div>
+                    <div class="message">
+                        <img src="./res/user.png">
+                        <div class="message-section">
+                            <h2 id="msgUsername">Someone</h2>
+                            <p id="msgText">Hello</span>
+                        </div>
+                    </div>
+                    <div class="message">
+                        <img src="./res/user.png">
+                        <div class="message-section">
+                            <h2 id="msgUsername">Someone</h2>
+                            <p id="msgText">Hello</span>
+                        </div>
+                    </div>
+                    <div class="message">
+                        <img src="./res/user.png">
+                        <div class="message-section">
+                            <h2 id="msgUsername">Someone</h2>
+                            <p id="msgText">Hello</span>
+                        </div>
+                    </div>
+                    <div class="message">
+                        <img src="./res/user.png">
+                        <div class="message-section">
+                            <h2 id="msgUsername">Someone</h2>
+                            <p id="msgText">Hello</span>
+                        </div>
+                    </div>
+                    <div class="message">
+                        <img src="./res/user.png">
+                        <div class="message-section">
+                            <h2 id="msgUsername">Someone</h2>
+                            <p id="msgText">Hello</span>
+                        </div>
+                    </div>
+                    <div class="message">
+                        <img src="./res/user.png">
+                        <div class="message-section">
+                            <h2 id="msgUsername">Someone</h2>
+                            <p id="msgText">Hello</span>
+                        </div>
+                    </div>
+
+                    <div class="message">
+                        <img src="./res/user.png">
+                        <div class="message-section">
+                            <h2 id="msgUsername">Someone</h2>
+                            <p id="msgText">Hello</span>
+                        </div>
+                    </div>
+                    <div class="message">
+                        <img src="./res/user.png">
+                        <div class="message-section">
+                            <h2 id="msgUsername">Someone</h2>
+                            <p id="msgText">Hello</span>
+                        </div>
+                    </div>
+                    <div class="message">
+                        <img src="./res/user.png">
+                        <div class="message-section">
+                            <h2 id="msgUsername">Someone</h2>
+                            <p id="msgText">Hello</span>
+                        </div>
+                    </div>
+
+
+
+                </div>
+
+                <div class="lower-bar">
+                    <div class="messaging-area">
+                        <input id="messageField" type="text" placeholder="Message">
+                        <div class="messaging-field-buttons">
+                            <button id="attachFile"><img src="./res/attach_file_black_24dp.svg"></button>
+                            <button id="sendMessage"><img src="./res/send_black_24dp.svg"></button>
+                        </div>
                     </div>
                 </div>
             </div>
-
         </div>
+
+
+
 
         <script type="text/javascript" src="func.js" async defer></script>
 </body>

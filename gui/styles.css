@@ -62,7 +62,7 @@ body {
     flex-direction: column;
     margin-top: 20px;
     height: 100%;
-    width: 700px;
+    width: 450px;
 }
 
 .settings-shortcuts {
@@ -183,7 +183,8 @@ body {
 .sidebar {
     display: flex;
     flex-direction: column;
-    width: 25rem;
+    width: 30rem;
+    min-width: 20rem;
     height: 100%;
     background-color: var(--sidebar);
 }
@@ -253,7 +254,7 @@ body {
     width: 100%;
 }
 
-#top-edit-profile {
+#sidebar-edit-profile {
     outline: none;
     background: none;
     border: none;
@@ -265,7 +266,7 @@ body {
     padding: 4px 9px;
 }
 
-#top-edit-profile:hover {
+#sidebar-edit-profile:hover {
     text-decoration: underline;
     background-color: var(--button-hover);
 }
@@ -310,9 +311,10 @@ body {
     flex-direction: row;
     justify-content: space-between;
     padding-left: 10px;
-    height: 55px;
+    height: 60px;
     width: 100%;
     overflow: hidden;
+    border-bottom: 1px solid var(--sidebar-secondary);
 }
 
 .sidebar-contact:hover {
@@ -321,15 +323,19 @@ body {
 }
 
 #sidebar-contacts img {
-    height: 30px;
-    width: 30px;
+    height: 42px;
+    width: 42px;
     border-radius: 50%;
 }
 
 .sidebar-contact-user-area {
-    display: grid;
+    display: flex;
+    flex-direction: column;
     width: 180px;
     padding-left: 12px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .sidebar-contact-user-area img svg {
@@ -340,6 +346,7 @@ body {
 .sidebar-contact-info {
     display: flex;
     align-items: center;
+    text-overflow: ellipsis;
 }
 
 .sidebar-dots {
@@ -395,6 +402,7 @@ body {
     width: 100%;
     color: var(--font-color);
     box-shadow: 0px 0px 5px #888;
+    animation: 0.3s anim-lineUp forwards;
 }
 
 .main-bar-item button {
@@ -442,7 +450,7 @@ body {
     display: flex;
     flex-direction: column;
     align-content: center;
-    width: 700px;
+    width: 450px;
     height: auto;
 }
 
@@ -458,7 +466,6 @@ body {
 .pending-requests {
     display: flex;
     flex-direction: column;
-    width: 700px;
     flex-wrap: nowrap;
     height: auto;
 }
@@ -539,7 +546,7 @@ body {
     display: flex;
     margin-top: 15px;
     flex-direction: column;
-    width: 600px;
+    width: 450px;
     height: 100%;
     gap: 20px;
 }
@@ -630,18 +637,132 @@ body {
 
 .messaging-screen {
     display: none;
-    flex-direction: column;
     width: 100%;
+    height: 100%;
+    animation: 0.3s anim-lineUp forwards;
+    flex-direction: column;
 }
 
 #messagingScreenMenuBar {
     justify-content: flex-start;
     color: black;
-    gap: 20px;
+    gap: 15px;
+    height: 50px;
 }
 
 #messagingScreenMenuBar button {
     padding: 5px 15px;
+    height: 50px;
+}
+
+#messagingScreenProfilePhoto img {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+}
+
+.messaging-screen-contact-info {
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+    height: 40px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    justify-content: center;
+    margin-left: -10px;
+}
+
+.messaging-screen-contact-info h1 {
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.messaging-screen-contact-info p {
+    display: block;
+    font-weight: 400;
+    font-size: 0.7rem;
+    text-overflow: ellipsis;
+}
+
+.message-history {
+    display: flex;
+    flex-direction: column;
+    flex: 2;
+    overflow: scroll;
+}
+
+.message {
+    display: flex;
+    flex-direction: row;
+    height: 60px;
+    align-items: center;
+    border-top: 1px solid var(--secondary-font-color);
+}
+
+.message:hover {
+    background-color: var(--secondary-font-color);
+}
+
+.message-section {
+    display: flex;
+    flex-direction: column;
+    margin-left: 16px;
+    height: 60px;
+    justify-content: center;
+    width: 600px;
+}
+
+.message-section h2 {
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+.message img {
+    height: 45px;
+    width: 45px;
+    margin-left: 25px;
+}
+
+.lower-bar {
+    display: flex;
+    flex-direction: row;
+    height: 60px;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.messaging-area {
+    display: flex;
+    flex-direction: row;
+    width: 95%;
+    justify-content: center;
+}
+
+.messaging-area input {
+    display: block;
+    outline: none;
+    width: 100%;
+    height: 45px;
+    padding: 5px 15px;
+    border-radius: 15px;
+    border: none;
+    background-color: var(--secondary-font-color);
+}
+
+.messaging-field-buttons {
+    display: flex;
+    flex-direction: row;
+    margin-left: -60px;
+}
+
+.messaging-field-buttons button {
+    background: none;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    height: 45px;
 }
 
 
