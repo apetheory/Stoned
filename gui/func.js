@@ -30,6 +30,11 @@ function showSettings() {
     hideAddFriend()
     hidePendingRequests()
     hideChat()
+    mainViewMenuBar = document.querySelector('#mainViewMenuBar')
+
+    if (mainViewMenuBar.style.display == "none") {
+        mainViewMenuBar.style.display = "flex";
+    }
 
     settingsView.style.display = "flex";
 };

@@ -4,14 +4,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800&display=swap');
 :root {
     --body: white;
-    --sidebar: #3F0E40;
+    --sidebar-main: #3F0E40;
     --sidebar-secondary: #552661;
-    --font-color: white;
-    --secondary-font-color: #ddd;
-    --settings-menu-section-color: rgb(107, 107, 107);
-    --settings-shortcut-title: black;
-    --settings-option-border-colour: rgb(231, 231, 231);
-    --button-hover: #552661;
+    --main-font-color: black;
+    --secondary-font-color: white;
+    --section-title-color: rgb(107, 107, 107);
+    --section-border-color: rgb(231, 231, 231);
+    --menu-bar-border: #8BB8E8;
+    --status-font-color: #ddd;
+    --message-box: #ddd;
+    --save-settings-button-border: green;
 }
 
 * {
@@ -75,38 +77,6 @@ body {
     gap: 30px;
 }
 
-.settings-shortcut {
-    display: none;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    width: 128px;
-    height: 128px;
-    gap: 10px;
-}
-
-.settings-shortcut img {
-    height: 80px;
-    width: 80px;
-}
-
-.settings-shortcuts a {
-    outline: none;
-    text-decoration: none;
-}
-
-.settings-shortcuts a:hover {
-    text-decoration: underline;
-    background-color: var(--secondary-font-color);
-    cursor: pointer;
-}
-
-.settings-shortcut-title {
-    font-weight: 600;
-    color: var(--settings-shortcut-title);
-}
-
 .settings-area {
     width: 100%;
     display: flex;
@@ -117,7 +87,7 @@ body {
 }
 
 .settings-section-title {
-    color: var(--settings-menu-section-color);
+    color: var(--section-title-color);
     margin-bottom: 15px;
     font-weight: 600;
     text-transform: uppercase;
@@ -136,7 +106,7 @@ body {
     justify-content: space-between;
     height: 50px;
     align-items: center;
-    border-top: 1px solid var(--settings-option-border-colour)
+    border-top: 1px solid var(--section-border-color);
 }
 
 .settings-item:hover {
@@ -186,13 +156,13 @@ body {
     width: 30rem;
     min-width: 20rem;
     height: 100%;
-    background-color: var(--sidebar);
+    background-color: var(--sidebar-main);
 }
 
 .sidebar-item {
     display: flex;
     width: 100%;
-    color: var(--font-color);
+    color: var(--secondary-font-color);
     height: auto;
 }
 
@@ -236,17 +206,17 @@ body {
     text-overflow: ellipsis;
 }
 
-#sidebar-profile-username {
+.sidebar-profile-username {
     width: 90px;
     font-size: 1rem;
     font-weight: 500;
     text-overflow: ellipsis;
 }
 
-#sidebar-profile-status {
+.sidebar-profile-status {
     font-weight: 400;
     font-size: 0.65rem;
-    color: var(--secondary-font-color);
+    color: grey;
 }
 
 .sidebar-edit-profile {
@@ -259,7 +229,7 @@ body {
     background: none;
     border: none;
     cursor: pointer;
-    color: var(--font-color);
+    color: var(--secondary-font-color);
     font-size: 0.65rem;
     font-weight: 400;
     border: 1px solid var(--sidebar-secondary);
@@ -268,7 +238,7 @@ body {
 
 #sidebar-edit-profile:hover {
     text-decoration: underline;
-    background-color: var(--button-hover);
+    background-color: var(--sidebar-secondary);
 }
 
 #sidebar-button-menu {
@@ -287,7 +257,7 @@ body {
     cursor: pointer;
     outline: none;
     border-radius: 0;
-    color: var(--font-color);
+    color: var(--sidebar-secondary);
     border: none;
     border-right: 1px solid var(--sidebar-secondary);
     border-bottom: 1px solid var(--sidebar-secondary);
@@ -295,7 +265,7 @@ body {
 
 #sidebar-button-menu button:hover {
     text-decoration: underline;
-    background-color: var(--button-hover);
+    background-color: var(--sidebar-secondary);
 }
 
 #sidebar-contacts {
@@ -318,7 +288,7 @@ body {
 }
 
 .sidebar-contact:hover {
-    background-color: var(--button-hover);
+    background-color: var(--sidebar-secondary);
     cursor: pointer;
 }
 
@@ -363,7 +333,7 @@ body {
 
 #sidebar-contact-status {
     font-size: 0.6rem;
-    color: var(--secondary-font-color);
+    color: var(--status-font-color);
 }
 
 #sidebar-contact-dots {
@@ -455,7 +425,7 @@ body {
 }
 
 .pending-requests-title {
-    color: var(--settings-menu-section-color);
+    color: var(--section-title-color);
     margin-bottom: 15px;
     font-weight: 600;
     text-transform: uppercase;
@@ -474,7 +444,7 @@ body {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    border-top: 1px solid var(--secondary-font-color);
+    border-top: 1px solid var(--section-border-color);
     padding-top: 10px;
     padding-bottom: 10px;
 }
@@ -556,7 +526,7 @@ body {
 }
 
 .request-description h1 {
-    color: var(--settings-menu-section-color);
+    color: var(--section-title-color);
     margin-bottom: 5px;
     font-weight: 600;
     text-transform: uppercase;
@@ -564,7 +534,7 @@ body {
 }
 
 .request-description span {
-    color: black;
+    color: var(--main-font-color);
     margin-bottom: 10px;
     font-weight: 500;
     font-size: 0.75rem;
@@ -582,7 +552,7 @@ body {
 }
 
 .friend-request-input::placeholder {
-    color: black;
+    color: var(--main-font-color);
     font-weight: 500;
     font-size: 0.7rem;
 }
@@ -689,7 +659,7 @@ body {
     display: flex;
     flex-direction: column;
     flex: 2;
-    overflow: scroll;
+    overflow: auto;
 }
 
 .message {
@@ -748,13 +718,14 @@ body {
     padding: 5px 15px;
     border-radius: 15px;
     border: none;
-    background-color: var(--secondary-font-color);
+    background-color: var(--message-box);
 }
 
 .messaging-field-buttons {
     display: flex;
     flex-direction: row;
-    margin-left: -60px;
+    margin-left: -70px;
+    gap: 10px;
 }
 
 .messaging-field-buttons button {
@@ -773,28 +744,28 @@ body {
 
 @keyframes menubar-border {
     0% {
-        border-bottom: 0px solid #8BB8E8;
+        border-bottom: 0px solid var(--menu-bar-border);
     }
     100% {
-        border-bottom: 3px solid #8BB8E8;
+        border-bottom: 3px solid var(--menu-bar-border);
     }
 }
 
 @keyframes settings-item-border {
     0% {
-        border-bottom: 0px solid #8BB8E8;
+        border-bottom: 0px solid var(--menu-bar-border);
     }
     100% {
-        border-bottom: 1px solid #8BB8E8;
+        border-bottom: 1px solid var(--menu-bar-border);
     }
 }
 
 @keyframes submit-btn-border {
     0% {
-        border-bottom: 0px solid green;
+        border-bottom: 0px solid var(--save-settings-button-border);
     }
     100% {
-        border-bottom: 2px solid green;
+        border-bottom: 2px solid var(--save-settings-button-border);
     }
 }
 

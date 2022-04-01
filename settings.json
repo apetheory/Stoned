@@ -1,0 +1,20 @@
+{
+    "username":"bandocode",
+    "status":"Available",
+    "avatar":"./data/you/frog.jpg",
+    "internalServerPort":6694,
+    "colorScheme": {
+        "color1":"#ffffff",
+        "color2":"#3F0E40",
+        "color3":"#552661",
+        "color4":"#000000",
+        "color5":"#ffffff",
+        "color6":"#6b6b6b",
+        "color7":"#e7e7e7",
+        "color8":"#8BB8E8",
+        "color9":"#dddddd",
+        "color10":"#dddddd",
+        "color11":"#008000"
+    }
+}
+

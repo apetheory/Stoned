@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title>el capitan</title>
     <link rel="stylesheet" href="styles.css" />
     <script type="text/javascript" src="/eel.js"></script>
@@ -17,11 +17,11 @@
             <div class="sidebar-item" id="sidebar-top">
                 <div class="sidebar-top-profile">
                     <div class="sidebar-profile-pfp">
-                        <img src="./res/user.png" />
+                        <img id="userProfilePhoto" src="" />
                     </div>
                     <div class="sidebar-profile-text">
                         <div class="sidebar-profile-text-column">
-                            <span id="sidebar-profile-username">You</span>
+                            <span class="sidebar-profile-username" id="username">You</span>
                         </div>
                         <div class="sidebar-profile-text-column">
                             <button id="sidebar-edit-profile" onclick="showSettings()">Edit profile</button>
@@ -54,6 +54,7 @@
 
             </div>
         </div>
+
         <div class="main-view">
 
             <div class="menu-bar" id="mainViewMenuBar">
@@ -81,49 +82,19 @@
 
             <div class="settings-wrapper" id="settingsView">
                 <div class="settings-view">
-                    <div class="settings-shortcuts">
-                        <a href="#settings-user-settings">
-                            <div class="settings-shortcut">
-                                <div class="settings-shortcut-icon">
-                                    <img src="./res/user-settings.png" />
-                                </div>
-                                <div class="settings-shortcut-title">
-                                    User settings
-                                </div>
-                            </div>
-                        </a>
-                        <a href="#settings-look-and-feel">
-                            <div class="settings-shortcut">
-                                <div class="settings-shortcut-icon">
-                                    <img src="./res/customize.png" />
-                                </div>
-                                <div class="settings-shortcut-title">
-                                    Look and feel
-                                </div>
-                            </div>
-                        </a>
-                        <a href="#settings-server-settings">
-                            <div class="settings-shortcut">
-                                <div class="settings-shortcut-icon">
-                                    <img src="./res/server.png" />
-                                </div>
-                                <div class="settings-shortcut-title">
-                                    Server settings
-                                </div>
-                            </div>
-                        </a>
-                    </div>
+
+
                     <div class="settings-area" id="settings-user-settings">
                         <div class="settings-section">
                             <div class="settings-section-title">User settings</div>
                             <div class="settings-section-content">
                                 <div class="settings-item">
                                     <div class="settings-item-title">Username</div>
-                                    <input type="text">
+                                    <input id="settingsUsernameBox" type="text">
                                 </div>
                                 <div class="settings-item">
                                     <div class="settings-item-title">Status</div>
-                                    <input type="text">
+                                    <input id="settingsStatusBox" type="text">
                                 </div>
                             </div>
                         </div>
@@ -131,29 +102,50 @@
                             <div class="settings-section-title">Look and feel</div>
                             <div class="settings-section-content ">
                                 <div class="settings-item">
-                                    <div class="settings-item-title">Sidebar main colour</div>
-                                    <input type="color">
+                                    <div class="settings-item-title">Body</div>
+                                    <input id="color1" type="color">
                                 </div>
                                 <div class="settings-item">
-                                    <div class="settings-item-title">Sidebar secondary colour</div>
-                                    <input type="color">
+                                    <div class="settings-item-title">Sidebar Body</div>
+                                    <input id="color2" type="color">
                                 </div>
                                 <div class="settings-item">
-                                    <div class="settings-item-title">Body colour</div>
-                                    <input type="color">
+                                    <div class="settings-item-title">Sidebar Secondary</div>
+                                    <input id="color3" type="color">
                                 </div>
                                 <div class="settings-item">
-                                    <div class="settings-item-title">Main navbar underline colour</div>
-                                    <input type="color">
+                                    <div class="settings-item-title">Main font</div>
+                                    <input id="color4" type="color">
                                 </div>
                                 <div class="settings-item">
-                                    <div class="settings-item-title">Main font colour</div>
-                                    <input type="color">
+                                    <div class="settings-item-title">Secondary font</div>
+                                    <input id="color5" type="color">
                                 </div>
                                 <div class="settings-item">
-                                    <div class="settings-item-title">Secondary font colour</div>
-                                    <input type="color">
+                                    <div class="settings-item-title">Menu title</div>
+                                    <input id="color6" type="color">
                                 </div>
+                                <div class="settings-item">
+                                    <div class="settings-item-title">Menus border</div>
+                                    <input id="color7" type="color">
+                                </div>
+                                <div class="settings-item">
+                                    <div class="settings-item-title">Navbar button highlight</div>
+                                    <input id="color8" type="color">
+                                </div>
+                                <div class="settings-item">
+                                    <div class="settings-item-title">User status</div>
+                                    <input id="color9" type="color">
+                                </div>
+                                <div class="settings-item">
+                                    <div class="settings-item-title">Message input field</div>
+                                    <input id="color10" type="color">
+                                </div>
+                                <div class="settings-item">
+                                    <div class="settings-item-title">Save button</div>
+                                    <input id="color11" type="color">
+                                </div>
+
                             </div>
                         </div>
                         <div class="settings-section" id="settings-server-settings">
@@ -161,7 +153,7 @@
                             <div class="settings-section-content">
                                 <div class="settings-item">
                                     <div class="settings-item-title ">Internal server port</div>
-                                    <input type="text">
+                                    <input id="settingsServerPort" type="text">
                                 </div>
                             </div>
                         </div>
@@ -194,6 +186,25 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="pending-request-contact">
+                            <div class="start">
+                                <img src="./res/user.png" />
+                                <div class="pending-request-contact-info">
+                                    <span class="pending-request-contact-username">Someone</span>
+                                    <span class="pending-request-contact-status">Status that is too long so the end gets cut off </span>
+                                </div>
+                            </div>
+                            <div class="end">
+                                <div class="pending-request-actions">
+                                    <button id="acceptRequest"><img src="./res/tick.svg"></button>
+                                    <button id="denyRequest"><img src="./res/x.svg"></button>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
                     </div>
                 </div>
             </div>
@@ -220,9 +231,6 @@
                     </div>
                 </div>
             </div>
-
-
-
 
             <div class="messaging-screen">
 
@@ -254,175 +262,7 @@
                             <p id="msgText">Hello</span>
                         </div>
                     </div>
-                    <div class="message">
-                        <img src="./res/user.png">
-                        <div class="message-section">
-                            <h2 id="msgUsername">Someone</h2>
-                            <p id="msgText">Hello</span>
-                        </div>
-                    </div>
-                    <div class="message">
-                        <img src="./res/user.png">
-                        <div class="message-section">
-                            <h2 id="msgUsername">Someone</h2>
-                            <p id="msgText">Hello</span>
-                        </div>
-                    </div>
-                    <div class="message">
-                        <img src="./res/user.png">
-                        <div class="message-section">
-                            <h2 id="msgUsername">Someone</h2>
-                            <p id="msgText">Hello</span>
-                        </div>
-                    </div>
-                    <div class="message">
-                        <img src="./res/user.png">
-                        <div class="message-section">
-                            <h2 id="msgUsername">Someone</h2>
-                            <p id="msgText">Hello</span>
-                        </div>
-                    </div>
-                    <div class="message">
-                        <img src="./res/user.png">
-                        <div class="message-section">
-                            <h2 id="msgUsername">Someone</h2>
-                            <p id="msgText">Hello</span>
-                        </div>
-                    </div>
-                    <div class="message">
-                        <img src="./res/user.png">
-                        <div class="message-section">
-                            <h2 id="msgUsername">Someone</h2>
-                            <p id="msgText">Hello</span>
-                        </div>
-                    </div>
-                    <div class="message">
-                        <img src="./res/user.png">
-                        <div class="message-section">
-                            <h2 id="msgUsername">Someone</h2>
-                            <p id="msgText">Hello</span>
-                        </div>
-                    </div>
-                    <div class="message">
-                        <img src="./res/user.png">
-                        <div class="message-section">
-                            <h2 id="msgUsername">Someone</h2>
-                            <p id="msgText">Hello</span>
-                        </div>
-                    </div>
-                    <div class="message">
-                        <img src="./res/user.png">
-                        <div class="message-section">
-                            <h2 id="msgUsername">Someone</h2>
-                            <p id="msgText">Hello</span>
-                        </div>
-                    </div>
-                    <div class="message">
-                        <img src="./res/user.png">
-                        <div class="message-section">
-                            <h2 id="msgUsername">Someone</h2>
-                            <p id="msgText">Hello</span>
-                        </div>
-                    </div>
-                    <div class="message">
-                        <img src="./res/user.png">
-                        <div class="message-section">
-                            <h2 id="msgUsername">Someone</h2>
-                            <p id="msgText">Hello</span>
-                        </div>
-                    </div>
-                    <div class="message">
-                        <img src="./res/user.png">
-                        <div class="message-section">
-                            <h2 id="msgUsername">Someone</h2>
-                            <p id="msgText">Hello</span>
-                        </div>
-                    </div>
-                    <div class="message">
-                        <img src="./res/user.png">
-                        <div class="message-section">
-                            <h2 id="msgUsername">Someone</h2>
-                            <p id="msgText">Hello</span>
-                        </div>
-                    </div>
-                    <div class="message">
-                        <img src="./res/user.png">
-                        <div class="message-section">
-                            <h2 id="msgUsername">Someone</h2>
-                            <p id="msgText">Hello</span>
-                        </div>
-                    </div>
-                    <div class="message">
-                        <img src="./res/user.png">
-                        <div class="message-section">
-                            <h2 id="msgUsername">Someone</h2>
-                            <p id="msgText">Hello</span>
-                        </div>
-                    </div>
-                    <div class="message">
-                        <img src="./res/user.png">
-                        <div class="message-section">
-                            <h2 id="msgUsername">Someone</h2>
-                            <p id="msgText">Hello</span>
-                        </div>
-                    </div>
-                    <div class="message">
-                        <img src="./res/user.png">
-                        <div class="message-section">
-                            <h2 id="msgUsername">Someone</h2>
-                            <p id="msgText">Hello</span>
-                        </div>
-                    </div>
-                    <div class="message">
-                        <img src="./res/user.png">
-                        <div class="message-section">
-                            <h2 id="msgUsername">Someone</h2>
-                            <p id="msgText">Hello</span>
-                        </div>
-                    </div>
-                    <div class="message">
-                        <img src="./res/user.png">
-                        <div class="message-section">
-                            <h2 id="msgUsername">Someone</h2>
-                            <p id="msgText">Hello</span>
-                        </div>
-                    </div>
-                    <div class="message">
-                        <img src="./res/user.png">
-                        <div class="message-section">
-                            <h2 id="msgUsername">Someone</h2>
-                            <p id="msgText">Hello</span>
-                        </div>
-                    </div>
-                    <div class="message">
-                        <img src="./res/user.png">
-                        <div class="message-section">
-                            <h2 id="msgUsername">Someone</h2>
-                            <p id="msgText">Hello</span>
-                        </div>
-                    </div>
 
-                    <div class="message">
-                        <img src="./res/user.png">
-                        <div class="message-section">
-                            <h2 id="msgUsername">Someone</h2>
-                            <p id="msgText">Hello</span>
-                        </div>
-                    </div>
-                    <div class="message">
-                        <img src="./res/user.png">
-                        <div class="message-section">
-                            <h2 id="msgUsername">Someone</h2>
-                            <p id="msgText">Hello</span>
-                        </div>
-                    </div>
-                    <div class="message">
-                        <img src="./res/user.png">
-                        <div class="message-section">
-                            <h2 id="msgUsername">Someone</h2>
-                            <p id="msgText">Hello</span>
-                        </div>
-                    </div>
 
 
 
@@ -443,7 +283,10 @@
 
 
 
+
+
         <script type="text/javascript" src="func.js" async defer></script>
+        <script type="text/javascript" src="backend.js" async defer></script>
 </body>
 
 </html>
