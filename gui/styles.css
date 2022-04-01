@@ -4,16 +4,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800&display=swap');
 :root {
     --body: white;
-    --sidebar-main: #3F0E40;
-    --sidebar-secondary: #552661;
-    --main-font-color: black;
-    --secondary-font-color: white;
-    --section-title-color: rgb(107, 107, 107);
-    --section-border-color: rgb(231, 231, 231);
-    --menu-bar-border: #8BB8E8;
-    --status-font-color: #ddd;
-    --message-box: #ddd;
-    --save-settings-button-border: green;
+    --sidebar-main: #fff;
+    --sidebar-secondary: #fff;
+    --main-font-color: #fff;
+    --secondary-font-color: #fff;
+    --section-title-color: #fff;
+    --section-border-color: #fff;
+    --menu-bar-border: #fff;
+    --status-font-color: #fff;
+    --message-box: #fff;
+    --save-settings-button-border: #fff;
 }
 
 * {

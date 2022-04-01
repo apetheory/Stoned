@@ -68,11 +68,9 @@ _SETTINGS.returnJSON()
 @eel.expose()
 def updateSettings(misc, colors):
 
-
     _SETTINGS.username = misc[0]
     _SETTINGS.status = misc[1]
     _SETTINGS.internalServerPort = misc[2]
-
 
     _SETTINGS.colorScheme["color1"] = colors[0]
     _SETTINGS.colorScheme["color2"] = colors[1]

@@ -68,7 +68,6 @@ settingsSubmitBtn.onclick = function() {
         color3.value,
         color4.value,
         color5.value,
-        color5.value,
         color6.value,
         color7.value,
         color8.value,
