@@ -25,11 +25,18 @@ function hideChat() {
     messagingScreen.style.display = "none";
 }
 
+function hideDashboard() {
+    dashboard = document.querySelector('.dashboardView')
+    dashboard.style.display = "none"
+}
+
+
 
 function showSettings() {
     hideAddFriend()
     hidePendingRequests()
     hideChat()
+    hideDashboard()
     mainViewMenuBar = document.querySelector('#mainViewMenuBar')
 
     if (mainViewMenuBar.style.display == "none") {
@@ -42,12 +49,14 @@ function showSettings() {
 buttonFriendRequests.onclick = function() {
     hideSettings()
     hideAddFriend()
+    hideDashboard()
     pendingRequestsView.style.display = "flex";
 }
 
 buttonAddFriend.onclick = function() {
     hideSettings()
     hidePendingRequests()
+    hideDashboard()
     sendRequestView.style.display = "flex";
 }
 
@@ -63,6 +72,8 @@ expandForm.onclick = function() {
 
 }
 
+
+
 function sidebarContactShowDots() {
     document.getElementById("contactDots").setAttribute("style", "display: flex;")
 }
@@ -75,6 +86,7 @@ function onContactClick() {
     hideSettings()
     hideAddFriend()
     hidePendingRequests()
+    hideDashboard()
 
     mainViewMenuBar = document.querySelector('#mainViewMenuBar')
     mainViewMenuBar.style.display = "none";
@@ -92,5 +104,15 @@ goBackHome.onclick = function() {
 
     mainViewMenuBar = document.querySelector('#mainViewMenuBar')
     mainViewMenuBar.style.display = "flex";
+}
+
+menuDashboard.onclick = function() {
+    hideChat()
+    hideAddFriend()
+    hidePendingRequests()
+    hideSettings()
+
+    dashboard = document.querySelector('.dashboardView')
+    dashboard.style.display = "flex"
 
 }

@@ -7,12 +7,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <title>el capitan</title>
     <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" href="./favicon.ico">
     <script type="text/javascript" src="/eel.js"></script>
 </head>
 
 <body>
     <div class="wrapper" id="home">
-
         <div class="sidebar">
             <div class="sidebar-item" id="sidebar-top">
                 <div class="sidebar-top-profile">
@@ -21,7 +21,7 @@
                     </div>
                     <div class="sidebar-profile-text">
                         <div class="sidebar-profile-text-column">
-                            <span class="sidebar-profile-username" id="username">You</span>
+                            <span class="sidebar-profile-username username">You</span>
                         </div>
                         <div class="sidebar-profile-text-column">
                             <button id="sidebar-edit-profile" onclick="showSettings()">Edit profile</button>
@@ -36,6 +36,7 @@
             </div>
 -->
             <div class="sidebar-item" id="sidebar-contacts">
+
                 <div class="sidebar-contact" id="sidebarContact" onmouseover="sidebarContactShowDots()" onmouseleave="hideContactDots()" onclick="onContactClick()">
                     <div class="sidebar-contact-info">
                         <img src="./res/user.png" />
@@ -44,20 +45,27 @@
                             <span id="sidebar-contact-status">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Facilis atque repellendus debitis quos nulla distinctio eum temporibus dicta labore saepe officiis corporis quod, iste, ex, dolores at odit commodi porro. </span>
                         </div>
                     </div>
+
+
+
                     <div class="sidebar-dots" id="contactDots">
                         <button id="sidebar-contact-dots" onclick="sidebarContactExpandMenu()">
                             <img src="./res/expand_more_black_24dp.svg" />
                         </button>
                     </div>
                 </div>
-
-
             </div>
         </div>
 
         <div class="main-view">
 
             <div class="menu-bar" id="mainViewMenuBar">
+                <div class="main-bar-item">
+                    <button id="menuDashboard"><div style="display:flex; flex-direction: row; justify-content: center; align-items: center; gap: 5px;">
+                        <img src="./res/admin_panel_settings_black_24dp.svg" />
+                        <span>Dashboard</span>
+                    </div></button>
+                </div>
                 <div class="main-bar-item">
                     <button id="menuAddFriend"><div style="display:flex; flex-direction: row; justify-content: center; align-items: center; gap: 5px;">
                         <img src="./res/person_add_black_24dp.svg" />
@@ -80,9 +88,21 @@
                 </div>
             </div>
 
+
+            <div class="dashboardView">
+
+                <div class="dashboard-left">
+                    Hello,
+                    <p class="username">You</span>
+                </div>
+
+                <div class="dashboard-left">
+                    2
+                </div>
+            </div>
+
             <div class="settings-wrapper" id="settingsView">
                 <div class="settings-view">
-
 
                     <div class="settings-area" id="settings-user-settings">
                         <div class="settings-section">
@@ -262,8 +282,20 @@
                             <p id="msgText">Hello</span>
                         </div>
                     </div>
-
-
+                    <div class="message">
+                        <img src="./res/user.png">
+                        <div class="message-section">
+                            <h2 id="msgUsername">Someone</h2>
+                            <p id="msgText">Hello</span>
+                        </div>
+                    </div>
+                    <div class="message">
+                        <img src="./res/user.png">
+                        <div class="message-section">
+                            <h2 id="msgUsername">Someone</h2>
+                            <p id="msgText">Hello</span>
+                        </div>
+                    </div>
 
 
                 </div>

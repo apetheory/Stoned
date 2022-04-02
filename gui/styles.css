@@ -405,6 +405,29 @@ body {
 
 /* ================================================================ */
 
+.dashboardView {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    animation: anim-lineUp 0.6s ease-out;
+}
+
+.dashboard-left {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: 400px;
+    align-items: center;
+}
+
+
+/* ================================================================ */
+
+
+/* ================================================================ */
+
 .pending-requests-view {
     display: none;
     width: 100%;
@@ -504,7 +527,7 @@ body {
 /* ================================================================ */
 
 .send-request-view {
-    display: flex;
+    display: none;
     flex-direction: column;
     align-items: center;
     width: 100%;
@@ -646,6 +669,7 @@ body {
 .messaging-screen-contact-info h1 {
     font-weight: 500;
     font-size: 0.9rem;
+    color: var(--main-font-color)
 }
 
 .messaging-screen-contact-info p {
@@ -653,6 +677,7 @@ body {
     font-weight: 400;
     font-size: 0.7rem;
     text-overflow: ellipsis;
+    color: var(--main-font-color)
 }
 
 .message-history {
@@ -686,6 +711,11 @@ body {
 .message-section h2 {
     font-weight: 500;
     font-size: 1rem;
+    color: var(--main-font-color)
+}
+
+.message-section p {
+    color: var(--main-font-color)
 }
 
 .message img {

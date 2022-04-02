@@ -14,8 +14,9 @@ const color11 = document.querySelector("#color11");
 const settingsServerPort = document.querySelector("#settingsServerPort");
 
 const userProfilePhoto = document.getElementById("userProfilePhoto");
-const username = document.querySelector("#username");
+const username = document.querySelectorAll(".username");
 const rootVars = document.querySelector(':root');
+
 
 // load settings
 eel.expose(loadSettings)
@@ -25,7 +26,10 @@ function loadSettings(sf) {
 
     // update pfp + username
     userProfilePhoto.src = settingsFile["avatar"];
-    username.innerHTML = settingsFile["username"];
+
+    for (let i = 0; i < username.length; i++) {
+        username[i].innerHTML = settingsFile["username"];
+    }
 
     // Settings tab values
     settingsUsernameBox.value = settingsFile["username"];
@@ -44,7 +48,6 @@ function loadSettings(sf) {
     color10.value = settingsFile["colorScheme"]["color10"];
     color11.value = settingsFile["colorScheme"]["color11"];
 
-
     rootVars.style.setProperty('--body', color1.value);
     rootVars.style.setProperty('--sidebar-main', color2.value);
     rootVars.style.setProperty('--sidebar-secondary', color3.value);
@@ -57,31 +60,34 @@ function loadSettings(sf) {
     rootVars.style.setProperty('--message-box', color10.value);
     rootVars.style.setProperty('--save-settings-button-border', color11.value);
 
+}
+
+settingsSubmitBtn.onclick = function() {
+    if (settingsUsernameBox.value.length <= 16) {
+        let colors = [
+            color1.value,
+            color2.value,
+            color3.value,
+            color4.value,
+            color5.value,
+            color6.value,
+            color7.value,
+            color8.value,
+            color9.value,
+            color10.value,
+            color11.value
+        ]
+
+        let misc = [
+            settingsUsernameBox.value,
+            settingsStatusBox.value,
+            settingsServerPort.value
+        ]
+        eel.updateSettings(misc, colors)
+    }
 
 }
 
+function createContact() {
 
-settingsSubmitBtn.onclick = function() {
-    let colors = [
-        color1.value,
-        color2.value,
-        color3.value,
-        color4.value,
-        color5.value,
-        color6.value,
-        color7.value,
-        color8.value,
-        color9.value,
-        color10.value,
-        color11.value
-    ]
-
-    let misc = [
-        settingsUsernameBox.value,
-        settingsStatusBox.value,
-        settingsServerPort.value
-    ]
-
-
-    eel.updateSettings(misc, colors)
 }
