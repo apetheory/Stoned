@@ -88,6 +88,11 @@ settingsSubmitBtn.onclick = function() {
 
 }
 
-function createContact() {
 
+addFriendByIP = document.querySelector("#submitFriendRequestIP")
+
+addFriendByIP.onclick = function() {
+    console.log("test")
+    parseText = document.querySelector("#sendFriendRequestIP").value
+    eel.connectToPeer(parseText)
 }

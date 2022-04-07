@@ -122,10 +122,18 @@ body {
     flex-direction: row;
     justify-content: flex-end;
     height: auto;
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+.settings-submit-btn img {
+    height: 20px;
+    width: 20px;
+    margin-left: 5px;
 }
 
 .settings-submit-btn button {
-    display: block;
+    display: flex;
     height: 40px;
     padding: 5px 30px;
     background: none;
@@ -135,7 +143,9 @@ body {
     border: none;
     font-weight: 500;
     text-align: center;
+    justify-content: center;
     align-items: center;
+    color: var(--main-font-color);
 }
 
 .settings-submit-btn button:hover {
@@ -387,6 +397,7 @@ body {
     font-weight: 500;
     text-align: center;
     align-items: center;
+    color: var(--main-font-color)
 }
 
 .main-bar-item button:hover {
@@ -397,6 +408,7 @@ body {
 .main-bar-item img {
     height: 25px;
     width: 25px;
+    fill: var(--main-font-color)
 }
 
 
@@ -411,7 +423,7 @@ body {
     height: 100%;
     width: 100%;
     justify-content: center;
-    animation: anim-lineUp 0.6s ease-out;
+    animation: anim-lineUp 0.6s forwards;
 }
 
 .dashboard-left {
@@ -589,6 +601,7 @@ body {
     padding: 5px 20px;
     font-size: 0.7rem;
     border-radius: 4px;
+    cursor: pointer;
 }
 
 .request-manual {

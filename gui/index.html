@@ -92,12 +92,11 @@
             <div class="dashboardView">
 
                 <div class="dashboard-left">
-                    Hello,
-                    <p class="username">You</span>
+                    <span style="font-weight: 400; font-size:1.5rem;">Hello, <span class="username">You</span></span>
                 </div>
 
                 <div class="dashboard-left">
-                    2
+
                 </div>
             </div>
 
@@ -179,7 +178,7 @@
                         </div>
                     </div>
                     <div class="settings-submit-btn">
-                        <button id="settingsSubmitBtn">Save</button>
+                        <button id="settingsSubmitBtn">Save <img src="./res/save_black_24dp.svg"/></button>
                     </div>
                 </div>
             </div>
@@ -236,18 +235,18 @@
                         <span>You can either add a friend manually or by using our matching server.</span>
                     </div>
                     <div class="request-matching-server">
-                        <form id="addFriendForm">
-                            <input type="text" placeholder="Enter friend code" class="friend-request-input" id="sendFriendRequestCode">
+                        <div id="addFriendForm">
+                            <input type="text" placeholder="Enter friend code" class="friend-request-input" id="sendFriendRequestCode" disabled>
                             <button class="friend-request-submit" id="submitFriendRequestCode">Send Friend Request</button>
-                        </form>
+                        </div>
                     </div>
 
                     <div class="request-manual">
                         <button id="expandRequestManual"><img src="./res/expand_more_black_24dp.svg" /><span>Add a friend using their IP Address</span></button>
-                        <form id="addFriendFormIP">
+                        <div id="addFriendFormIP">
                             <input type="text" placeholder="IP Address : Port" class="friend-request-input" id="sendFriendRequestIP">
                             <button class="friend-request-submit" id="submitFriendRequestIP">Send Friend Request</button>
-                        </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -302,7 +301,7 @@
 
                 <div class="lower-bar">
                     <div class="messaging-area">
-                        <input id="messageField" type="text" placeholder="Message">
+                        <input id="messageField" type="text" placeholder="Message" disabled>
                         <div class="messaging-field-buttons">
                             <button id="attachFile"><img src="./res/attach_file_black_24dp.svg"></button>
                             <button id="sendMessage"><img src="./res/send_black_24dp.svg"></button>
