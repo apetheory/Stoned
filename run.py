@@ -11,11 +11,10 @@ import time
 eel.init('gui')
 
 _SERVER_IP      =   socket.gethostbyname(socket.gethostname()) 
-_SERVER_PORT    =   42697
+_SERVER_PORT    =   42706
 
 _UID = json.load(open("uid.json"),)["uid"]
 
-print(f"{_UID}")
 @dataclass
 class Settings:
     """Class for keeping track of the user settings"""
@@ -125,18 +124,18 @@ class Client:
         
         self.socket.connect((_SERVER_IP, _SERVER_PORT))
         
+        
         clientFile = self.generatePacket(
             "newConnection",
-            {"username":_SETTINGS.username,"avatar":_SETTINGS.avatar,"status":_SETTINGS.status}
+            {"username":_SETTINGS.username,"avatar":"None","status":_SETTINGS.status}
             )
 
         if clientFile != None:
             
-            clientFile = json.dumps(clientFile)
-            self.socket.send(clientFile.encode("utf-8"))
+            self.socket.send(clientFile)
         
         
-    def generatePacket(self, packetType:str, content:dict, toWhom:str = "") -> dict:
+    def generatePacket(self, packetType:str, content:dict = {}, toWhom:str = "") -> dict:
         if packetType == "newConnection":
             packet = {
                 "type":packetType,
@@ -151,11 +150,45 @@ class Client:
                 "time":time.time()*1000,
                 "content":content
             }
+        elif packetType == "friendRequest":
+            packet = {
+                "type":packetType,
+                "uid":_UID,
+                "destination":toWhom,
+                "time":time.time()*1000
+            }
         else:
             print("Invalid packet")
             return None
         
+        packet = json.dumps(packet).encode("utf-8")
+        
         return packet
+    
+    def sendData(self, packet:dict) -> None:
+        
+        self.socket.send(packet)
+        
+    def recvPacketsFromServer(self) -> None:
+        
+        while True: 
+            packet = self.socket.recv(40960)
+            packet = packet.decode("utf-8")
+            
+            if self.checkPacketValidity(packet) == True:
+                print(packet)
+                
+             
+                    
+            
+    def checkPacketValidity(self, packet:dict) -> bool:
+        if "type" in packet and "uid" in packet:
+            return True
+        else:
+            return False
+        
+            
+        
 
 
 # Create the contact dictionary
@@ -167,8 +200,30 @@ _SETTINGS.returnJSON()
 
 # Create the client object
 _CLIENT = Client()
-_CLIENT.connect()
+try:
+    _CLIENT.connect()
+except Exception as err:
+    print("Could not connect to server. Offline?")
+    print(err)
 
+@eel.expose
+def addFriend(code):
+    
+    if code == _UID:
+        print("You cannot add yourself.")
+        return
+    
+    _CLIENT.sendData(_CLIENT.generatePacket(
+        "friendRequest",
+        {},
+        code
+        )
+    )
+    
 
+listenerThread = Thread(target=_CLIENT.recvPacketsFromServer)
+listenerThread.start()
+
+ 
 #Start the app
 eel.start('index.html', size=("1152","640"))

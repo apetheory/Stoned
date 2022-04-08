@@ -89,10 +89,10 @@ settingsSubmitBtn.onclick = function() {
 }
 
 
-addFriendByIP = document.querySelector("#submitFriendRequestIP")
+addFriendByCodeButton = document.querySelector("#submitFriendRequestCode")
 
-addFriendByIP.onclick = function() {
-    console.log("test")
-    parseText = document.querySelector("#sendFriendRequestIP").value
-    eel.connectToPeer(parseText)
+addFriendByCodeButton.onclick = function() {
+    console.log("!!")
+    friendCode = document.querySelector("#sendFriendRequestCode").value
+    eel.addFriend(friendCode)
 }
