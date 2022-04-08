@@ -11,7 +11,7 @@ import time
 eel.init('gui')
 
 _SERVER_IP      =   socket.gethostbyname(socket.gethostname()) 
-_SERVER_PORT    =   42706
+_SERVER_PORT    =   42707
 
 _UID = json.load(open("uid.json"),)["uid"]
 
