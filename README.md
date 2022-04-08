@@ -1,3 +1,3 @@
-
-A small peer-to-peer secure chat app created using Python EEL to leverage modern web technologies for a stunning GUI.  
-A project created for my school coursework. 
+ℹ️ A small secure chat app created using Python EEL to leverage web technologies to create a stunning GUI
+🔐 AES-256 bit encryption on every message sent. Only you and the recipient can see it.
+📚 Created for my school coursework. Code written for legibility not efficiency.
