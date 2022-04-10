@@ -11,7 +11,7 @@ import os
 
 eel.init('gui')
 
-_SERVER_IP      =   socket.gethostbyname(socket.gethostname()) 
+_SERVER_IP      =   "192.168.50.41"
 _SERVER_PORT    =   42713
 
 _UID = json.load(open("uid.json"),)["uid"]
@@ -260,4 +260,4 @@ listenerThread.start()
 
  
 #Start the app
-eel.start('index.html', size=("1152","640"))
+eel.start('index.html', size=("1280","720"))

@@ -2,7 +2,7 @@ import socket
 from threading import Thread
 import json
 
-_SERVER_IP = socket.gethostbyname(socket.gethostname())
+_SERVER_IP = "192.168.50.41"
 _PORT = 42713
 
 class Server: 
