@@ -62,6 +62,25 @@ function loadSettings(sf) {
 
 }
 
+eel.expose(addPendingContact);
+
+function addPendingContact(cF, uid) {
+
+    let clientFile = JSON.parse(cF);
+
+    recvUsername = clientFile["username"]
+    recvStatus = clientFile["status"]
+
+    element = "<div class='pending-request-contact'><div class='start'><img src='./res/user.png' /><div class='pending-request-contact-info'><span class='pending-request-contact-username'>" + recvUsername + "</span><spanclass='pending-request-contact-status'>" + recvStatus + "</span></div></div><div class='end'><div class='pending-request-actions'><button id='acceptRequest'><img src='./res/tick.svg'></button><button id='denyRequest'><img src='./res/x.svg'></button></div></div></div>"
+
+    document.querySelector(".pending-requests").innerHTML += element
+
+
+
+}
+
+
+
 settingsSubmitBtn.onclick = function() {
     if (settingsUsernameBox.value.length <= 16) {
         let colors = [
@@ -96,39 +115,3 @@ addFriendByCodeButton.onclick = function() {
     friendCode = document.querySelector("#sendFriendRequestCode").value
     eel.addFriend(friendCode)
 }
-
-
-eel.expose(addPending);
-
-function addPending(clientFile) {
-
-    let clientFile = json.parse(clientFile);
-
-    username = clientFile["username"]
-    userStatus = clientFile["status"]
-
-    element = "<div class='pending-request-contact'><div class='start'><img src='./res/user.png' /><div class='pending-request-contact-info'><span class='pending-request-contact-username'>" + username + "</span><spanclass='pending-request-contact-status'>" + userStatus + "</span></div></div><div class='end'><div class='pending-request-actions'><button id='acceptRequest'><img src='./res/tick.svg'></button><button id='denyRequest'><img src='./res/x.svg'></button></div></div></div>"
-
-    document.querySelector(".pending-requests").innerHTML += element
-
-}
-/*
-
-<div class="pending-request-contact">
-<div class="start">
-    <img src="./res/user.png" />
-    <div class="pending-request-contact-info">
-        <span class="pending-request-contact-username">Someone</span>
-        <span class="pending-request-contact-status">Status that is too long so the end gets cut off </span>
-    </div>
-</div>
-<div class="end">
-    <div class="pending-request-actions">
-        <button id="acceptRequest"><img src="./res/tick.svg"></button>
-        <button id="denyRequest"><img src="./res/x.svg"></button>
-    </div>
-</div>
-</div>
-
-
-*/

@@ -98,11 +98,12 @@ class Connections:
 
     def addPending(self, UID:str, clientFile:dict) -> None:
         
+        print(UID,clientFile)
         print("hello")
         
         self.pending[UID] = clientFile
         
-        eel.addPending(json.dumps(self.pending[UID]))
+        eel.addPendingContact(json.dumps(self.pending[UID]),UID)
         
 
     def moveToAccepted(self, UID:str) -> None:
@@ -178,8 +179,9 @@ class Client:
             packet = json.loads(packet)
             
             if self.checkPacketValidity(packet) == True:
+                print(f"Received packet: {packet}")
                 if packet["type"] == "friendRequest":
-       
+                    
                     _CONTACTS.addPending(packet["uid"], packet["content"])
                       
     def checkPacketValidity(self, packet:dict) -> bool:

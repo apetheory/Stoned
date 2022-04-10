@@ -56,9 +56,8 @@ class Server:
         
         try:
             while True:  
-
-            
-                data = clientSocket.recv(4096)
+                            
+                data = clientSocket.recv(40960)
          
                 if data == "": break
                 
@@ -72,7 +71,7 @@ class Server:
                     
                     try:
                
-                        packet["content"] = self.connectedClients[packet["destination"]]
+                        packet["content"] = self.connectedClients[uid]
                         
                         packetReceiverSocket = self.connectedSockets[packet["destination"]]
                         print(packet)
@@ -82,8 +81,6 @@ class Server:
                     except Exception as err:
                         print(f"Invalid friend code.\n{err}")
                         
-                   
-                    
         except Exception as err:
             print(f"Connection lost to client. ({err})")
             self.disconnectClient(uid)
