@@ -11,7 +11,7 @@ import os
 
 eel.init('gui')
 
-_SERVER_IP      =   "192.168.50.41"
+_SERVER_IP      =   "localhost"
 _SERVER_PORT    =   42713
 
 _UID = json.load(open("uid.json"),)["uid"]
