@@ -57,7 +57,7 @@ class Server:
         try:
             while True:  
                             
-                data = clientSocket.recv(40960)
+                data = clientSocket.recv(16384)
          
                 if data == "": break
                 

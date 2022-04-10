@@ -162,8 +162,7 @@ class Client:
     def connect(self) -> None:
         
         self.socket.connect((_SERVER_IP, _SERVER_PORT))
-        
-        
+               
         clientFile = self.generatePacket(
             "newConnection",
             {"username":_SETTINGS.username,"avatar":"None","status":_SETTINGS.status}
