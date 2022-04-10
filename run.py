@@ -210,7 +210,7 @@ class Client:
     def recvPacketsFromServer(self) -> None:
         
         while True: 
-            packet = self.socket.recv(40960)
+            packet = self.socket.recv(16384)
             packet = packet.decode("utf-8")
             packet = json.loads(packet)
             

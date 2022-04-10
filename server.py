@@ -21,7 +21,7 @@ class Server:
         
     def clientHandler(self, clientSocket:object, cAddr:tuple) -> None:
         
-        joinFile = clientSocket.recv(40960)
+        joinFile = clientSocket.recv(16384)
         
         joinFile = joinFile.decode("utf-8")
         joinFile = json.loads(joinFile)
