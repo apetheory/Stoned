@@ -5,6 +5,7 @@ import json
 from dataclasses import dataclass
 from threading import Thread
 import time
+import os
 
 # filename = askopenfilename()
 
@@ -87,28 +88,64 @@ def updateSettings(misc:list, colors:list) -> None:
     _SETTINGS.saveSettings()
     _SETTINGS.returnJSON()
 
-@dataclass
+@dataclass(init=False)
 class Connections:
     """Class for keeping track of contacts and incoming connections"""
 
     accepted      :       dict 
     pending       :       dict 
-    clients       :       list
-    active        :       dict 
+    
+    def __init__(self, accepted, pending):
+        self.accepted = accepted
+        self.pending = pending
+        
+        # Loading the saved clients into the dictionaries above.
+        for i in os.listdir("./gui/data/"):
+            if i != "you":
+                try:
+                    with open(f"./gui/data/{i}/status.json","r") as status:
+                        if json.loads(status.read())["pending"] == True:
+                            with open(f"./gui/data/{i}/{i}.json") as uF:
+                                self.pending[i] = json.loads(uF.read())
+                                eel.addPendingContact(json.dumps(self.pending[i]),i)            
+                        elif json.loads(status.read())["accepted"] == True and json.loads(status.read())["pending"] == False:
+                            with open(f"./gui/data/{i}/{i}.json") as uF:
+                                self.accepted[i] = json.loads(uF.read())
+                except: 
+                    print(f"Could not read into {i}")
+    
+        
 
     def addPending(self, UID:str, clientFile:dict) -> None:
         
-        print(UID,clientFile)
-        print("hello")
-        
         self.pending[UID] = clientFile
-        
         eel.addPendingContact(json.dumps(self.pending[UID]),UID)
         
-
+        try:
+            os.mkdir(f"./gui/data/{UID}")
+        except:
+            print(f"User folder for {UID} already exists")        
+    
+        
+        with open(f"./gui/data/{UID}/{UID}.json", "w") as f:
+            f.write(json.dumps(self.pending[UID]))
+            
+        with open(f"./gui/data/{UID}/status.json", "w") as f:
+            f.write(json.dumps({
+                "pending":True,
+                "accepted":False
+            }))
+             
     def moveToAccepted(self, UID:str) -> None:
         self.accepted[UID] = self.pending[UID]
         self.pending.pop(UID)
+        
+        with open(f"./gui/data/{UID}/status.json", "w") as f:
+            f.write(json.dumps({
+                "pending":False,
+                "accepted":True
+            }))
+        
 
     def remove(self, UID:str) -> None:
         try:
@@ -181,8 +218,8 @@ class Client:
             if self.checkPacketValidity(packet) == True:
                 print(f"Received packet: {packet}")
                 if packet["type"] == "friendRequest":
-                    
-                    _CONTACTS.addPending(packet["uid"], packet["content"])
+                    if packet["uid"] not in _CONTACTS.pending and packet["uid"] not in _CONTACTS.accepted:
+                        _CONTACTS.addPending(packet["uid"], packet["content"])
                       
     def checkPacketValidity(self, packet:dict) -> bool:
         if "type" in packet and "uid" in packet:
@@ -191,7 +228,7 @@ class Client:
             return False
 
 
-_CONTACTS = Connections({},{},[],{})
+_CONTACTS = Connections({},{})
 
 #Load the settings and send the JSON file to JS
 _SETTINGS = Settings()
