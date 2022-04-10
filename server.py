@@ -3,16 +3,15 @@ from threading import Thread
 import json
 
 _SERVER_IP = socket.gethostbyname(socket.gethostname())
-_PORT = 42707
+_PORT = 42713
 
 class Server: 
     def __init__(self) -> None:
         
         # vars
         self.connectedClients = {}
-        self.connectedSockets = []
+        self.connectedSockets = {}
 
-            
         #Create socket
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.socket.bind( (_SERVER_IP,_PORT))
@@ -31,10 +30,15 @@ class Server:
         
         if(self.checkPacketValidity(joinFile)) == True:
             userFile = joinFile["content"]
-            userFile["socket"] = clientSocket
-             
+                 
             self.connectedClients[joinFile["uid"]] = userFile 
-            self.connectedSockets.append([joinFile["uid"],clientSocket])
+            self.connectedSockets[joinFile["uid"]] = clientSocket
+            
+            Thread(target=self.acceptPackets, args=(clientSocket,joinFile["uid"])).start()
+            
+    def disconnectClient(self, uid:str) -> None:
+        self.connectedClients.pop(uid)
+        self.connectedSockets.pop(uid)
           
         
     def acceptConnections(self) -> None:
@@ -48,44 +52,50 @@ class Server:
         else:
             return False
         
-            
-    def acceptPackets(self) -> None:
-        while True:  
-            for i in self.connectedSockets:
-            
-                clientSocket = i[1]
-                
-                packet = clientSocket.recv(4096)
-                packet = packet.decode("utf-8")
-                packet = json.loads(packet)
-                
-                
-                if self.checkPacketValidity(packet) == True:
-                    
-                    print(f"Packet received: {packet}")
-                    
-                    if packet["type"] == "friendRequest":
-                        
-                        receiver = self.connectedClients[packet["destination"]]
-                        
+    def acceptPackets(self, clientSocket:object, uid:str) -> None:
+        
+        try:
+            while True:  
 
-                        packetReceiverSocket = receiver["socket"]
+            
+                data = clientSocket.recv(4096)
+         
+                if data == "": break
+                
+                packet = json.loads(data.decode("utf-8"))
+                
+                if self.checkPacketValidity(packet) != True: break
+                
+                print(f"Packet received: {packet}")
+                
+                if packet["type"] == "friendRequest":
+                    
+                    try:
+               
+                        packet["content"] = self.connectedClients[packet["destination"]]
                         
+                        packetReceiverSocket = self.connectedSockets[packet["destination"]]
+                        print(packet)
                         packet = json.dumps(packet).encode("utf-8")
                         packetReceiverSocket.send(packet)
-                        clientSocket.send(b'friend request sent :D')
                         
+                    except Exception as err:
+                        print(f"Invalid friend code.\n{err}")
+                        
+                   
+                    
+        except Exception as err:
+            print(f"Connection lost to client. ({err})")
+            self.disconnectClient(uid)
+            
+                    
                                       
-
 def main() -> None:
     
     _SERVER = Server()
     
     threadAcceptConnections = Thread(target=_SERVER.acceptConnections)
     threadAcceptConnections.start()
-    
-    threadAcceptPackets = Thread(target=_SERVER.acceptPackets)
-    threadAcceptPackets.start()
     
     
 

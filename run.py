@@ -11,11 +11,10 @@ import time
 eel.init('gui')
 
 _SERVER_IP      =   socket.gethostbyname(socket.gethostname()) 
-_SERVER_PORT    =   42707
+_SERVER_PORT    =   42713
 
 _UID = json.load(open("uid.json"),)["uid"]
 
-@dataclass
 class Settings:
     """Class for keeping track of the user settings"""
     username                :       str
@@ -98,11 +97,13 @@ class Connections:
     active        :       dict 
 
     def addPending(self, UID:str, clientFile:dict) -> None:
-        self.pending[UID] = {
-            "username"          :   clientFile["username"],
-            "profilePhoto"      :   clientFile["profilePhoto"],
-            "status"            :   clientFile["status"],
-        }
+        
+        print("hello")
+        
+        self.pending[UID] = clientFile
+        
+        eel.addPending(json.dumps(self.pending[UID]))
+        
 
     def moveToAccepted(self, UID:str) -> None:
         self.accepted[UID] = self.pending[UID]
@@ -174,31 +175,26 @@ class Client:
         while True: 
             packet = self.socket.recv(40960)
             packet = packet.decode("utf-8")
+            packet = json.loads(packet)
             
             if self.checkPacketValidity(packet) == True:
-                print(packet)
-                
-             
-                    
-            
+                if packet["type"] == "friendRequest":
+       
+                    _CONTACTS.addPending(packet["uid"], packet["content"])
+                      
     def checkPacketValidity(self, packet:dict) -> bool:
         if "type" in packet and "uid" in packet:
             return True
         else:
             return False
-        
-            
-        
 
 
-# Create the contact dictionary
 _CONTACTS = Connections({},{},[],{})
 
 #Load the settings and send the JSON file to JS
 _SETTINGS = Settings()
 _SETTINGS.returnJSON()
 
-# Create the client object
 _CLIENT = Client()
 try:
     _CLIENT.connect()
@@ -207,7 +203,7 @@ except Exception as err:
     print(err)
 
 @eel.expose
-def addFriend(code):
+def addFriend(code) -> None:
     
     if code == _UID:
         print("You cannot add yourself.")
