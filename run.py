@@ -114,9 +114,8 @@ class Connections:
                     elif getStatus["accepted"] == True:
                         with open(f"./gui/data/{i}/{i}.json") as uF:
                             self.accepted[i] = json.loads(uF.read())
-  
-    
-        
+                            eel.createSidebarContact(json.dumps(self.accepted[i]),i)  
+      
     def addPending(self, UID:str, clientFile:dict) -> None:
         
         self.pending[UID] = clientFile
@@ -147,7 +146,6 @@ class Connections:
                 "accepted":True
             }))
         
-
     def remove(self, UID:str) -> None:
         try:
             self.accepted.pop(UID)
@@ -273,6 +271,8 @@ def addFriend(code) -> None:
 def acceptFriendRequest(code:str) -> None:
     print(f"Accept {code}")    
     _CONTACTS.moveToAccepted(code)
+    
+    eel.createSidebarContact(json.dumps(_CONTACTS.accepted[code]),code)
     
 @eel.expose
 def denyFriendRequest(code:str) -> None:

@@ -133,3 +133,24 @@ function denyFriendRequest(destination) {
         }
     }
 }
+
+eel.expose(createSidebarContact);
+
+function createSidebarContact(uF, uid) {
+    console.log("sfs")
+    let userDetails = JSON.parse(uF)
+
+    let contactUsername = userDetails["username"]
+    let contactStatus = userDetails["status"]
+
+
+    let contact = "<div class='sidebar-contact' id='sidebarContact' data-uid=\"" + uid + "\" onmouseover='sidebarContactShowDots()' onmouseleave='hideContactDots()' onclick='onContactClick()'><div class='sidebar-contact-info'><img src='./res/user.png' /><div class='sidebar-contact-user-area'><span id='sidebar-contact-username'>" + contactUsername + "</span><span id='sidebar-contact-status'>" + contactStatus + "</span></div></div><div class='sidebar-dots' id='contactDots'><button id='sidebar-contact-dots' onclick='sidebarContactExpandMenu()'><img src='./res/expand_more_black_24dp.svg' /></button></div>"
+
+
+
+    document.querySelector("#sidebar-contacts").innerHTML += contact
+
+
+
+
+}
