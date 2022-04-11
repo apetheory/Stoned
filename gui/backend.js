@@ -17,6 +17,8 @@ const userProfilePhoto = document.getElementById("userProfilePhoto");
 const username = document.querySelectorAll(".username");
 const rootVars = document.querySelector(':root');
 
+const addFriendByCodeButton = document.querySelector("#submitFriendRequestCode")
+
 
 // load settings
 eel.expose(loadSettings);
@@ -71,15 +73,11 @@ function addPendingContact(cF, uid) {
     recvUsername = clientFile["username"]
     recvStatus = clientFile["status"]
 
-    element = "<div class='pending-request-contact'><div class='start'><img src='./res/user.png' /><div class='pending-request-contact-info'><span class='pending-request-contact-username'>" + recvUsername + "</span><spanclass='pending-request-contact-status'>" + recvStatus + "</span></div></div><div class='end'><div class='pending-request-actions'><button id='acceptRequest'><img src='./res/tick.svg'></button><button id='denyRequest'><img src='./res/x.svg'></button></div></div></div>"
+    element = "<div class='pending-request-contact' data-uid='" + uid + "'><div class='start'><img src='./res/user.png' /><div class='pending-request-contact-info'><span class='pending-request-contact-username'>" + recvUsername + "</span><spanclass='pending-request-contact-status'>" + recvStatus + "</span></div></div><div class='end'><div class='pending-request-actions'><button data-uid='" + uid + "' class='acceptRequest' onclick='acceptFriendRequest(\"" + uid + "\")'><img src='./res/tick.svg'></button><button data-uid='" + uid + "' class='denyRequest' onclick='denyFriendRequest(\"" + uid + "\")'><img src='./res/x.svg'></button></div></div></div>"
 
     document.querySelector(".pending-requests").innerHTML += element
 
-
-
 }
-
-
 
 settingsSubmitBtn.onclick = function() {
     if (settingsUsernameBox.value.length <= 16) {
@@ -107,11 +105,31 @@ settingsSubmitBtn.onclick = function() {
 
 }
 
-
-addFriendByCodeButton = document.querySelector("#submitFriendRequestCode")
-
 addFriendByCodeButton.onclick = function() {
-    console.log("!!")
     friendCode = document.querySelector("#sendFriendRequestCode").value
     eel.addFriend(friendCode)
+}
+
+function acceptFriendRequest(destination) {
+    let friendRequests = document.querySelectorAll(".pending-request-contact")
+
+    eel.acceptFriendRequest(destination);
+
+    for (let i = 0; i < friendRequests.length; i++) {
+        if (friendRequests[i].dataset.uid == destination) {
+            friendRequests[i].remove()
+        }
+    }
+}
+
+function denyFriendRequest(destination) {
+    let friendRequests = document.querySelectorAll(".pending-request-contact")
+
+    eel.denyFriendRequest(destination);
+
+    for (let i = 0; i < friendRequests.length; i++) {
+        if (friendRequests[i].dataset.uid == destination) {
+            friendRequests[i].remove()
+        }
+    }
 }

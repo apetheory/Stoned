@@ -3,7 +3,7 @@ from threading import Thread
 import json
 
 _SERVER_IP = "localhost"
-_PORT = 42713
+_PORT = 42714
 
 class Server: 
     def __init__(self) -> None:

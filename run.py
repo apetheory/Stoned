@@ -12,7 +12,7 @@ import os
 eel.init('gui')
 
 _SERVER_IP      =   "localhost"
-_SERVER_PORT    =   42713
+_SERVER_PORT    =   42714
 
 _UID = json.load(open("uid.json"),)["uid"]
 
@@ -253,7 +253,14 @@ def addFriend(code) -> None:
         code
         )
     )
+
+@eel.expose
+def acceptFriendRequest(code:str) -> None:
+    print(f"Accept {code}")    
     
+@eel.expose
+def denyFriendRequest(code:str) -> None:
+    print(f"Deny {code}")
 
 listenerThread = Thread(target=_CLIENT.recvPacketsFromServer)
 listenerThread.start()
