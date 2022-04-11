@@ -102,20 +102,21 @@ class Connections:
         # Loading the saved clients into the dictionaries above.
         for i in os.listdir("./gui/data/"):
             if i != "you":
-                try:
-                    with open(f"./gui/data/{i}/status.json","r") as status:
-                        if json.loads(status.read())["pending"] == True:
-                            with open(f"./gui/data/{i}/{i}.json") as uF:
-                                self.pending[i] = json.loads(uF.read())
-                                eel.addPendingContact(json.dumps(self.pending[i]),i)            
-                        elif json.loads(status.read())["accepted"] == True and json.loads(status.read())["pending"] == False:
-                            with open(f"./gui/data/{i}/{i}.json") as uF:
-                                self.accepted[i] = json.loads(uF.read())
-                except: 
-                    print(f"Could not read into {i}")
+
+                with open(f"./gui/data/{i}/status.json","r") as status:
+                    getStatus = json.loads(status.read())
+                    
+                    if getStatus["pending"] == True:
+                        with open(f"./gui/data/{i}/{i}.json") as uF:
+                            self.pending[i] = json.loads(uF.read())
+                            eel.addPendingContact(json.dumps(self.pending[i]),i)      
+                                  
+                    elif getStatus["accepted"] == True:
+                        with open(f"./gui/data/{i}/{i}.json") as uF:
+                            self.accepted[i] = json.loads(uF.read())
+  
     
         
-
     def addPending(self, UID:str, clientFile:dict) -> None:
         
         self.pending[UID] = clientFile
@@ -150,11 +151,25 @@ class Connections:
     def remove(self, UID:str) -> None:
         try:
             self.accepted.pop(UID)
+            
+            with open(f"./gui/data/{UID}/status.json", "w") as f:
+                f.write(json.dumps({
+                    "pending":False,
+                    "accepted":False
+            }))
+            
         except:
             self.pending.pop(UID)
-        finally:
-            print("The contract you're trying to remove does not exist")
-
+            
+            with open(f"./gui/data/{UID}/status.json", "w") as f:
+                f.write(json.dumps({
+                    "pending":False,
+                    "accepted":False
+            }))
+                
+    
+            
+                    
 class Client:
     def __init__(self) -> None:
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
@@ -257,10 +272,13 @@ def addFriend(code) -> None:
 @eel.expose
 def acceptFriendRequest(code:str) -> None:
     print(f"Accept {code}")    
+    _CONTACTS.moveToAccepted(code)
     
 @eel.expose
 def denyFriendRequest(code:str) -> None:
     print(f"Deny {code}")
+    _CONTACTS.remove(code)
+    
 
 listenerThread = Thread(target=_CLIENT.recvPacketsFromServer)
 listenerThread.start()
