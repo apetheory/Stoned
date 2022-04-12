@@ -268,10 +268,10 @@
 
                 <div class="lower-bar">
                     <div class="messaging-area">
-                        <input id="messageField" type="text" placeholder="Message" disabled>
+                        <input id="messageField" type="text" placeholder="Message" onkeydown="messageBoxKeyPressed(event)">
                         <div class="messaging-field-buttons">
                             <button id="attachFile"><img src="./res/attach_file_black_24dp.svg"></button>
-                            <button id="sendMessage"><img src="./res/send_black_24dp.svg"></button>
+                            <button id="sendMessage" onclick="sendMessage()"><img src="./res/send_black_24dp.svg"></button>
                         </div>
                     </div>
                 </div>

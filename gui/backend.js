@@ -19,6 +19,8 @@ const rootVars = document.querySelector(':root');
 
 const addFriendByCodeButton = document.querySelector("#submitFriendRequestCode")
 
+let contacts = {}
+
 
 // load settings
 eel.expose(loadSettings);
@@ -138,19 +140,49 @@ eel.expose(createSidebarContact);
 
 function createSidebarContact(uF, uid) {
     console.log("sfs")
+
     let userDetails = JSON.parse(uF)
 
     let contactUsername = userDetails["username"]
     let contactStatus = userDetails["status"]
 
 
-    let contact = "<div class='sidebar-contact' id='sidebarContact' data-uid=\"" + uid + "\" onmouseover='sidebarContactShowDots()' onmouseleave='hideContactDots()' onclick='onContactClick()'><div class='sidebar-contact-info'><img src='./res/user.png' /><div class='sidebar-contact-user-area'><span id='sidebar-contact-username'>" + contactUsername + "</span><span id='sidebar-contact-status'>" + contactStatus + "</span></div></div><div class='sidebar-dots' id='contactDots'><button id='sidebar-contact-dots' onclick='sidebarContactExpandMenu()'><img src='./res/expand_more_black_24dp.svg' /></button></div>"
-
-
+    let contact = "<div class='sidebar-contact' id='sidebarContact' data-uid=\"" + uid + "\" onmouseover='sidebarContactShowDots()' onmouseleave='hideContactDots()' onclick='onContactClick(\"" + uid + "\")'><div class='sidebar-contact-info'><img src='./res/user.png' /><div class='sidebar-contact-user-area'><span id='sidebar-contact-username'>" + contactUsername + "</span><span id='sidebar-contact-status'>" + contactStatus + "</span></div></div></div>"
 
     document.querySelector("#sidebar-contacts").innerHTML += contact
 
 
+}
 
 
+async function onContactClick(uid) {
+
+    hideSettings()
+    hideAddFriend()
+    hidePendingRequests()
+    hideDashboard()
+
+    mainViewMenuBar = document.querySelector('#mainViewMenuBar')
+    mainViewMenuBar.style.display = "none";
+
+    messagingScreen = document.querySelector('.messaging-screen')
+
+    if (messagingScreen.style.display != "flex") {
+        messagingScreen.style.display = "flex";
+    }
+
+    document.getElementById("messagingScreenUsername").innerHTML = await eel.getDataByUID("username", uid)()
+    document.getElementById("messagingScreenUsername").setAttribute("data-uid", uid)
+    document.getElementById("messagingScreenStatus").innerHTML = await eel.getDataByUID("status", uid)()
+
+
+}
+
+
+function sendMessage() {
+
+    let text = document.getElementById("messageField").value
+    uid = document.getElementById("messagingScreenUsername").dataset.uid
+
+    eel.sendMessage(text, uid)
 }

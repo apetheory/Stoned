@@ -62,7 +62,6 @@ class Server:
                 if data == "": break
                 
                 packet = json.loads(data.decode("utf-8"))
-                
                 if self.checkPacketValidity(packet) != True: break
                 
                 print(f"Packet received: {packet}")
@@ -72,14 +71,32 @@ class Server:
                     try:
                
                         packet["content"] = self.connectedClients[uid]
-                        
                         packetReceiverSocket = self.connectedSockets[packet["destination"]]
+                        
                         print(packet)
                         packet = json.dumps(packet).encode("utf-8")
                         packetReceiverSocket.send(packet)
                         
                     except Exception as err:
                         print(f"Invalid friend code.\n{err}")
+                
+                elif packet["type"] == "messagePacket":
+                    
+                    packetReceiverSocket = self.connectedSockets[packet["destination"]]
+                    packet = json.dumps(packet).encode("utf-8")
+                    packetReceiverSocket.send(packet)
+            
+                elif packet["type"] == "acceptFriendRequest":
+                    
+                    packetReceiverSocket = self.connectedSockets[packet["destination"]]
+                    packet = json.dumps(packet).encode("utf-8")
+                    packetReceiverSocket.send(packet)
+                    
+                    
+                    
+
+                    
+                    
                         
         except Exception as err:
             print(f"Connection lost to client. ({err})")

@@ -116,11 +116,16 @@ class Connections:
                             self.accepted[i] = json.loads(uF.read())
                             eel.createSidebarContact(json.dumps(self.accepted[i]),i)  
       
-    def addPending(self, UID:str, clientFile:dict) -> None:
+    def addPending(self, UID:str, clientFile:dict, addPending:bool=True) -> None:
         
         self.pending[UID] = clientFile
-        eel.addPendingContact(json.dumps(self.pending[UID]),UID)
         
+        if addPending == True:
+            eel.addPendingContact(json.dumps(self.pending[UID]),UID)
+        
+        self.createUserFolder(UID, clientFile)
+        
+    def createUserFolder(self, UID:str, clientFile:str) -> None:
         try:
             os.mkdir(f"./gui/data/{UID}")
         except:
@@ -135,6 +140,7 @@ class Connections:
                 "pending":True,
                 "accepted":False
             }))
+        
              
     def moveToAccepted(self, UID:str) -> None:
         self.accepted[UID] = self.pending[UID]
@@ -164,10 +170,7 @@ class Connections:
                     "pending":False,
                     "accepted":False
             }))
-                
-    
-            
-                    
+                            
 class Client:
     def __init__(self) -> None:
         self.socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM) 
@@ -208,6 +211,13 @@ class Client:
                 "destination":toWhom,
                 "time":time.time()*1000
             }
+        elif packetType == "acceptFriendRequest":
+            packet = {
+                "type":packetType,
+                "uid":_UID,
+                "content":content,
+                "destination":toWhom
+            }
         else:
             print("Invalid packet")
             return None
@@ -232,6 +242,12 @@ class Client:
                 if packet["type"] == "friendRequest":
                     if packet["uid"] not in _CONTACTS.pending and packet["uid"] not in _CONTACTS.accepted:
                         _CONTACTS.addPending(packet["uid"], packet["content"])
+                elif packet["type"] == "messagePacket":
+                    print(f"message received: {packet}")
+                elif packet["type"] == "acceptFriendRequest":
+                    _CONTACTS.addPending(packet["uid"], packet["content"], addPending=False)
+                    _CONTACTS.moveToAccepted(packet["uid"])
+                    eel.createSidebarContact(json.dumps(_CONTACTS.accepted[packet["uid"]]),packet["uid"])
                       
     def checkPacketValidity(self, packet:dict) -> bool:
         if "type" in packet and "uid" in packet:
@@ -270,8 +286,19 @@ def addFriend(code) -> None:
 @eel.expose
 def acceptFriendRequest(code:str) -> None:
     print(f"Accept {code}")    
+    
+    acceptRequestPacket = _CLIENT.generatePacket("acceptFriendRequest", 
+                                                {"username":_SETTINGS.username,
+                                                "avatar":"None",
+                                                "status":_SETTINGS.status}, 
+                                                 code) 
+    
+    _CLIENT.sendData(acceptRequestPacket) 
+    
     _CONTACTS.moveToAccepted(code)
     
+    
+
     eel.createSidebarContact(json.dumps(_CONTACTS.accepted[code]),code)
     
 @eel.expose
@@ -279,7 +306,25 @@ def denyFriendRequest(code:str) -> None:
     print(f"Deny {code}")
     _CONTACTS.remove(code)
     
+@eel.expose
+def getDataByUID(data:str,uid:str) -> str:
+    return _CONTACTS.accepted[uid][data]
 
+@eel.expose
+def getMessagesJSON(uid:str) -> dict:
+    
+    with open(f"./gui/data/{uid}/messages/messages.json","r") as msgFile:
+            msgJson = json.dumps(msgFile.read())
+    
+    return msgJson
+    
+@eel.expose
+def sendMessage(text:str,uid:str) -> None:
+    messagePacket = _CLIENT.generatePacket("messagePacket", {"text":text}, uid)
+    _CLIENT.sendData(messagePacket)
+    
+
+    
 listenerThread = Thread(target=_CLIENT.recvPacketsFromServer)
 listenerThread.start()
 

@@ -72,9 +72,8 @@ expandForm.onclick = function() {
 
 }
 
-
-
 function sidebarContactShowDots() {
+
     document.getElementById("contactDots").setAttribute("style", "display: flex;")
 }
 
@@ -82,21 +81,6 @@ function hideContactDots() {
     document.getElementById("contactDots").setAttribute("style", "display: none;")
 }
 
-function onContactClick() {
-    hideSettings()
-    hideAddFriend()
-    hidePendingRequests()
-    hideDashboard()
-
-    mainViewMenuBar = document.querySelector('#mainViewMenuBar')
-    mainViewMenuBar.style.display = "none";
-
-    messagingScreen = document.querySelector('.messaging-screen')
-
-    if (messagingScreen.style.display != "flex") {
-        messagingScreen.style.display = "flex";
-    }
-}
 
 goBackHome.onclick = function() {
     messagingScreen = document.querySelector('.messaging-screen')
@@ -115,4 +99,10 @@ menuDashboard.onclick = function() {
     dashboard = document.querySelector('.dashboardView')
     dashboard.style.display = "flex"
 
+}
+
+function messageBoxKeyPressed(event) {
+    if (event.keyCode == 13) {
+        sendMessage()
+    }
 }
