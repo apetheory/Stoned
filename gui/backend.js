@@ -179,10 +179,13 @@ async function onContactClick(uid) {
 }
 
 
-function sendMessage() {
+async function sendMessage() {
 
     let text = document.getElementById("messageField").value
     uid = document.getElementById("messagingScreenUsername").dataset.uid
 
-    eel.sendMessage(text, uid)
+    let sent = await eel.sendMessage(text, uid)()
+    if (sent == 1) {
+        document.getElementById("messageField").value = ""
+    }
 }

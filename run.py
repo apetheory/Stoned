@@ -6,6 +6,8 @@ from dataclasses import dataclass
 from threading import Thread
 import time
 import os
+from random import sample
+import string
 
 # filename = askopenfilename()
 
@@ -14,7 +16,22 @@ eel.init('gui')
 _SERVER_IP      =   "localhost"
 _SERVER_PORT    =   42714
 
-_UID = json.load(open("uid.json"),)["uid"]
+
+def createUID() -> str:
+    with open("uid.json","w") as f:
+        _UID = "".join(sample(string.ascii_lowercase+string.ascii_uppercase+string.digits,16))
+        
+        f.write(json.dumps({
+            "uid":_UID
+            }))
+    return _UID
+
+try:
+    _UID = json.load(open("uid.json"),)["uid"]
+except:
+    _UID = createUID()
+
+print(f"{_UID}")
 
 class Settings:
     """Class for keeping track of the user settings"""
@@ -123,9 +140,9 @@ class Connections:
         if addPending == True:
             eel.addPendingContact(json.dumps(self.pending[UID]),UID)
         
-        self.createUserFolder(UID, clientFile)
+        self.createUserFolder(UID)
         
-    def createUserFolder(self, UID:str, clientFile:str) -> None:
+    def createUserFolder(self, UID:str) -> None:
         try:
             os.mkdir(f"./gui/data/{UID}")
         except:
@@ -188,7 +205,6 @@ class Client:
             
             self.socket.send(clientFile)
         
-        
     def generatePacket(self, packetType:str, content:dict = {}, toWhom:str = "") -> dict:
         if packetType == "newConnection":
             packet = {
@@ -243,7 +259,20 @@ class Client:
                     if packet["uid"] not in _CONTACTS.pending and packet["uid"] not in _CONTACTS.accepted:
                         _CONTACTS.addPending(packet["uid"], packet["content"])
                 elif packet["type"] == "messagePacket":
-                    print(f"message received: {packet}")
+                   
+                    if packet["uid"] in _CONTACTS.accepted:
+                        
+                        uid = packet["uid"]
+                        
+                        with open(f"./gui/data/{uid}/messages.json","r") as f:
+                            messages = json.loads(f.read())
+                        messages[packet["time"]] = {
+                            "username":packet["uid"]["content"]["username"],
+                            "content":packet["uid"]["content"]["text"]
+                        }
+                        with open(f"./gui/data/{uid}/messages.json","w") as f:
+                            f.write(json.dumps(messages))
+                            
                 elif packet["type"] == "acceptFriendRequest":
                     _CONTACTS.addPending(packet["uid"], packet["content"], addPending=False)
                     _CONTACTS.moveToAccepted(packet["uid"])
@@ -310,24 +339,31 @@ def denyFriendRequest(code:str) -> None:
 def getDataByUID(data:str,uid:str) -> str:
     return _CONTACTS.accepted[uid][data]
 
-@eel.expose
-def getMessagesJSON(uid:str) -> dict:
-    
-    with open(f"./gui/data/{uid}/messages/messages.json","r") as msgFile:
-            msgJson = json.dumps(msgFile.read())
-    
-    return msgJson
     
 @eel.expose
-def sendMessage(text:str,uid:str) -> None:
-    messagePacket = _CLIENT.generatePacket("messagePacket", {"text":text}, uid)
-    _CLIENT.sendData(messagePacket)
-    
+def sendMessage(text:str,uid:str) -> int:
 
+    messagePacket = _CLIENT.generatePacket("messagePacket", {"text":text}, uid)
+    try:
+        _CLIENT.sendData(messagePacket)
+        
+        with open(f"./gui/data/{uid}/messages.json","r") as f:
+            messages = json.loads(f.read())
+        messages[time.time()*1000] = {
+            "username":_SETTINGS.username,
+            "content":text
+        }
+        with open(f"./gui/data/{uid}/messages.json","w") as f:
+            f.write(json.dumps(messages))
+            
+    except:
+        print(f"Could not send message'{text}' to {uid}")
+        return 0
     
+    return 1
+        
 listenerThread = Thread(target=_CLIENT.recvPacketsFromServer)
 listenerThread.start()
 
- 
 #Start the app
 eel.start('index.html', size=("1280","720"))
