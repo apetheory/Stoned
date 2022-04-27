@@ -19,7 +19,8 @@ const rootVars = document.querySelector(':root');
 
 const addFriendByCodeButton = document.querySelector("#submitFriendRequestCode")
 
-let contacts = {}
+
+let currentlyChattingWith = ""
 
 
 // load settings
@@ -162,6 +163,8 @@ async function onContactClick(uid) {
     hidePendingRequests()
     hideDashboard()
 
+    currentlyChattingWith = uid
+
     mainViewMenuBar = document.querySelector('#mainViewMenuBar')
     mainViewMenuBar.style.display = "none";
 
@@ -175,9 +178,9 @@ async function onContactClick(uid) {
     document.getElementById("messagingScreenUsername").setAttribute("data-uid", uid)
     document.getElementById("messagingScreenStatus").innerHTML = await eel.getDataByUID("status", uid)()
 
+    setInterval(autoUpdateMessages(uid), 1000);
 
 }
-
 
 async function sendMessage() {
 
@@ -188,4 +191,22 @@ async function sendMessage() {
     if (sent == 1) {
         document.getElementById("messageField").value = ""
     }
+}
+
+async function autoUpdateMessages(uid) {
+
+    while (document.getElementById("messageHistory").hasChildNodes()) {
+        document.getElementById("messageHistory").removeChild(document.getElementById("messageHistory").lastChild);
+    }
+
+    messageFile = await eel.getMessageFileByUID(uid)()
+
+    for (msg in messageFile) {
+
+        document.getElementById("messageHistory").innerHTML += "<div class='message'><img src='./res/user.png'><div class='message-section'><h2 id='msgUsername'>" + messageFile[msg]["username"] + "</h2><p id='msgText'>" + messageFile[msg]["content"] + "</span></div></div>"
+    }
+
+    document.getElementById("messageHistory").scrollTop = document.getElementById("messageHistory").scrollHeight;
+
+
 }

@@ -92,14 +92,8 @@ class Server:
                     packet = json.dumps(packet).encode("utf-8")
                     packetReceiverSocket.send(packet)
                     
-                    
-                    
-
-                    
-                    
-                        
         except Exception as err:
-            print(f"Connection lost to client. ({err})")
+            print(f"Connection lost to client. ({uid})")
             self.disconnectClient(uid)
             
                     

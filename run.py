@@ -9,13 +9,10 @@ import os
 from random import sample
 import string
 
-# filename = askopenfilename()
-
 eel.init('gui')
 
 _SERVER_IP      =   "localhost"
 _SERVER_PORT    =   42714
-
 
 def createUID() -> str:
     with open("uid.json","w") as f:
@@ -151,6 +148,9 @@ class Connections:
         
         with open(f"./gui/data/{UID}/{UID}.json", "w") as f:
             f.write(json.dumps(self.pending[UID]))
+        
+        with open(f"./gui/data/{UID}/messages.json","w") as f:
+            f.write(json.dumps({}))
             
         with open(f"./gui/data/{UID}/status.json", "w") as f:
             f.write(json.dumps({
@@ -267,8 +267,8 @@ class Client:
                         with open(f"./gui/data/{uid}/messages.json","r") as f:
                             messages = json.loads(f.read())
                         messages[packet["time"]] = {
-                            "username":packet["uid"]["content"]["username"],
-                            "content":packet["uid"]["content"]["text"]
+                            "username":_CONTACTS.accepted[uid]["username"],
+                            "content":packet["content"]["text"]
                         }
                         with open(f"./gui/data/{uid}/messages.json","w") as f:
                             f.write(json.dumps(messages))
@@ -361,6 +361,18 @@ def sendMessage(text:str,uid:str) -> int:
         return 0
     
     return 1
+
+@eel.expose
+def getMessageFileByUID(uid:str) -> dict:
+    
+    try:
+        with open(f"./gui/data/{uid}/messages.json") as f:
+            return json.loads(f.read())
+    except:
+        return {}
+        
+
+            
         
 listenerThread = Thread(target=_CLIENT.recvPacketsFromServer)
 listenerThread.start()
