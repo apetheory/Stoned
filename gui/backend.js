@@ -155,7 +155,14 @@ function createSidebarContact(uF, uid) {
 
 }
 
+eel.expose(GetCurrentlyChattingWith)
+async function GetCurrentlyChattingWith() {
+    return currentlyChattingWith
+}
 
+
+
+eel.expose(onContactClick);
 async function onContactClick(uid) {
 
     hideSettings()

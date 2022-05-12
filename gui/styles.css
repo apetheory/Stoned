@@ -564,6 +564,8 @@ body {
 
 .request-description {
     height: auto;
+    display: flex;
+    flex-direction: column;
 }
 
 .request-description h1 {

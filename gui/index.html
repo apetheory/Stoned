@@ -64,12 +64,6 @@
 
             <div class="menu-bar" id="mainViewMenuBar">
                 <div class="main-bar-item">
-                    <button id="menuDashboard"><div style="display:flex; flex-direction: row; justify-content: center; align-items: center; gap: 5px;">
-                        <img src="./res/admin_panel_settings_black_24dp.svg" />
-                        <span>Dashboard</span>
-                    </div></button>
-                </div>
-                <div class="main-bar-item">
                     <button id="menuAddFriend"><div style="display:flex; flex-direction: row; justify-content: center; align-items: center; gap: 5px;">
                         <img src="./res/person_add_black_24dp.svg" />
                         <span>Add friend</span>
@@ -199,6 +193,7 @@
                     <div class="request-description">
                         <h1>Add friend</h1>
                         <span>You can either add a friend manually or by using our matching server.</span>
+                        <span>Your friend code is: <span id="yourFriendCode">undefined</span>
                     </div>
                     <div class="request-matching-server">
                         <div id="addFriendForm">

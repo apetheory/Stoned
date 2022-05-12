@@ -106,3 +106,8 @@ function messageBoxKeyPressed(event) {
         sendMessage()
     }
 }
+
+async function displayFriendCodeInAddFriendMenu() {
+    document.getElementById("yourFriendCode").innerHTML = await eel.getUID()()
+}
+displayFriendCodeInAddFriendMenu()

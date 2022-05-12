@@ -8,12 +8,16 @@ import time
 import os
 from random import sample
 import string
+import rsa
+from playsound import playsound
 
 eel.init('gui')
 
 _SERVER_IP      =   "localhost"
 _SERVER_PORT    =   42714
 
+
+# Generate the unique client code if it isn't already present in the file uid.json
 def createUID() -> str:
     with open("uid.json","w") as f:
         _UID = "".join(sample(string.ascii_lowercase+string.ascii_uppercase+string.digits,16))
@@ -29,6 +33,30 @@ except:
     _UID = createUID()
 
 print(f"{_UID}")
+
+
+
+try: 
+    keys = json.load(open("crypto.json",))
+    
+    # Decode keys from PKCS#1 format 
+    pubkey = rsa.PublicKey.load_pkcs1(keys["pubkey"].encode('utf-8')) 
+    privkey = rsa.PrivateKey.load_pkcs1(keys["privkey"].encode('utf-8')) 
+    
+except:
+    #Generate keys
+    (pubkey, privkey) = rsa.newkeys(2048)
+    
+    # Export keys in PKCS#1 format, PEM encoded 
+    publicKeyPkcs1PEM = pubkey.save_pkcs1().decode('utf-8') 
+    privateKeyPkcs1PEM = privkey.save_pkcs1().decode('utf-8') 
+    
+    with open("crypto.json","w") as keyStore:
+        keyStore.write(json.dumps({
+            "pubkey":publicKeyPkcs1PEM,
+            "privkey":privateKeyPkcs1PEM
+        }))
+
 
 class Settings:
     """Class for keeping track of the user settings"""
@@ -115,7 +143,7 @@ class Connections:
         
         # Loading the saved clients into the dictionaries above.
         for i in os.listdir("./gui/data/"):
-            if i != "you":
+            if i != "you" and i != ".DS_Store":
 
                 with open(f"./gui/data/{i}/status.json","r") as status:
                     getStatus = json.loads(status.read())
@@ -198,7 +226,7 @@ class Client:
                
         clientFile = self.generatePacket(
             "newConnection",
-            {"username":_SETTINGS.username,"avatar":"None","status":_SETTINGS.status}
+            {"username":_SETTINGS.username,"avatar":"None","status":_SETTINGS.status, "pubkey":pubkey.save_pkcs1().decode('utf-8')}
             )
 
         if clientFile != None:
@@ -255,28 +283,45 @@ class Client:
             
             if self.checkPacketValidity(packet) == True:
                 print(f"Received packet: {packet}")
+                
+                
+                
                 if packet["type"] == "friendRequest":
                     if packet["uid"] not in _CONTACTS.pending and packet["uid"] not in _CONTACTS.accepted:
                         _CONTACTS.addPending(packet["uid"], packet["content"])
+                        playsound("./gui/res/friend_request.mp3")
+                        
+                        
+                        
                 elif packet["type"] == "messagePacket":
                    
                     if packet["uid"] in _CONTACTS.accepted:
+                        playsound("./gui/res/message.mp3")
                         
                         uid = packet["uid"]
-                        
+                        username = _CONTACTS.accepted[uid]["username"]
+       
                         with open(f"./gui/data/{uid}/messages.json","r") as f:
                             messages = json.loads(f.read())
                         messages[packet["time"]] = {
-                            "username":_CONTACTS.accepted[uid]["username"],
-                            "content":packet["content"]["text"]
+                            "username":username,
+                            "content":rsa.decrypt(packet["content"]["text"].encode('ISO-8859-1'), privkey).decode('utf-8')
                         }
                         with open(f"./gui/data/{uid}/messages.json","w") as f:
                             f.write(json.dumps(messages))
+                        
+                        if eel.GetCurrentlyChattingWith()() == uid:
+                            eel.onContactClick(uid)
+                        
+                        
                             
                 elif packet["type"] == "acceptFriendRequest":
+                    playsound('./gui/res/friend_request.mp3')
+                    
                     _CONTACTS.addPending(packet["uid"], packet["content"], addPending=False)
                     _CONTACTS.moveToAccepted(packet["uid"])
                     eel.createSidebarContact(json.dumps(_CONTACTS.accepted[packet["uid"]]),packet["uid"])
+                    
                       
     def checkPacketValidity(self, packet:dict) -> bool:
         if "type" in packet and "uid" in packet:
@@ -319,7 +364,8 @@ def acceptFriendRequest(code:str) -> None:
     acceptRequestPacket = _CLIENT.generatePacket("acceptFriendRequest", 
                                                 {"username":_SETTINGS.username,
                                                 "avatar":"None",
-                                                "status":_SETTINGS.status}, 
+                                                "status":_SETTINGS.status,
+                                                "pubkey":pubkey.save_pkcs1().decode('utf-8')}, 
                                                  code) 
     
     _CLIENT.sendData(acceptRequestPacket) 
@@ -343,7 +389,16 @@ def getDataByUID(data:str,uid:str) -> str:
 @eel.expose
 def sendMessage(text:str,uid:str) -> int:
 
-    messagePacket = _CLIENT.generatePacket("messagePacket", {"text":text}, uid)
+    coded_text = text.encode('utf-8 ')
+    
+    #get public key
+    utf8_contact_pubkey = _CONTACTS.accepted[uid]["pubkey"].encode('utf-8')
+    raw_contact_pubkey = rsa.PublicKey.load_pkcs1(utf8_contact_pubkey)
+    
+    # encrypt message
+    encrypted_text = rsa.encrypt(coded_text, raw_contact_pubkey).decode('ISO-8859-1')
+    
+    messagePacket = _CLIENT.generatePacket("messagePacket", {"text":encrypted_text}, uid)
     try:
         _CLIENT.sendData(messagePacket)
         
@@ -355,6 +410,8 @@ def sendMessage(text:str,uid:str) -> int:
         }
         with open(f"./gui/data/{uid}/messages.json","w") as f:
             f.write(json.dumps(messages))
+            
+        eel.onContactClick(uid)
             
     except:
         print(f"Could not send message'{text}' to {uid}")
@@ -371,11 +428,15 @@ def getMessageFileByUID(uid:str) -> dict:
     except:
         return {}
         
-
+@eel.expose
+def getUID() -> str:
+    return _UID
             
         
 listenerThread = Thread(target=_CLIENT.recvPacketsFromServer)
 listenerThread.start()
+
+
 
 #Start the app
 eel.start('index.html', size=("1280","720"))
